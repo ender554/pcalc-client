@@ -1,50 +1,70 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Component } from 'react';
+import { connect } from 'react-redux';
 
 import './training.css';
+import { fetchHand } from '../actions/game';
+import { fetchHoldCard } from '../actions/game';
 
 // import Deck from "react-poker";
 const { decks } = require('cards');
 
 
-const deck = new decks.StandardDeck({ jokers: 0 });
 
-function change(card){
-  console.log(card.rank.shortName + card.suit.name);
-}
 
-function suitLog(suit, rank){
-  console.log(rank);
-  console.log(suit);
-}
 
-function deckRender(hand) {
-  
+class Training extends Component {
 
-  return hand.map((card, i) => {
-    const name = card;
-    const rank = card;
-    return <li 
-    key={i}
-    onClick={() => suitLog(name.suit.name, rank.rank.shortName)}
-    >{card.rank.shortName} {card.suit.name}
-    </li>
-  }
-  )
-};
+  deckRender(hand) {
+    return hand.map((card, i) => {
+      return <li
+        key={i}
+        value={i}
+      >{card.rank} {card.suit} {card.held.value}
+      </li>
+    }
+    )
+  };
 
-export function Training() {
-  deck.shuffleAll();
-  const hand = deck.draw(5);
-  // console.log(hand);
-  return (
-    <div className="deal"><Link to='/training'><button>Deal</button></Link>
+  renderTheBoard(hand) {
+    return (
       <div className="game-component" >
-        <ul className="hand">
-          {(deckRender(hand))}
+        <ul className="hand"
+          onClick={(target) => this.props.dispatch(fetchHoldCard(target.target.value))}
+        >
+          {(this.deckRender(hand))}
         </ul>
         <button>Confirm</button>
       </div>
-    </div>
-  );
+    )
+  }
+
+  dealHand() {
+    const deck = new decks.StandardDeck({ jokers: 0 });
+    deck.shuffleAll();
+    const hand = deck.draw(5);
+    this.props.dispatch(fetchHand(hand));
+  }
+
+  componentDidMount() {
+    this.dealHand();
+  }
+  render() {
+    const board = this.renderTheBoard(this.props.cards);
+    return (
+      <div className="deal"><button onClick={() => this.dealHand()}>Deal</button>
+        {board}
+      </div>
+    );
+
+  }
+
 }
+
+const mapStateToProps = (state) => {
+  return ({
+    cards: state.game.cards
+  });
+}
+
+export default connect(mapStateToProps)(Training);

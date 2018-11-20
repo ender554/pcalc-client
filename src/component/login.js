@@ -1,5 +1,5 @@
 import React from "react";
-import {Redirect} from 'react-router-dom';
+// import {Redirect} from 'react-router-dom';
 import { Field, reduxForm, focus } from 'redux-form';
 import { registerUser } from '../actions/users';
 import Input from './input';

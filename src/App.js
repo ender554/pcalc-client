@@ -1,5 +1,5 @@
 import React from 'react';
-import { Training } from './component/training';
+import Training from './component/training';
 // import ReactDOM from 'react-dom';
 import { NavBar } from './component/navbar';
 import {Splash} from './component/splash';
