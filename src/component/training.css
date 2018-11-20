@@ -1,0 +1,24 @@
+.hand {
+  list-style: none;
+  background-color: white;
+  margin-top: 50px;
+}
+
+.game-component{
+  margin-top: 50px;
+}
+
+.hand li{
+  margin-left: 30px;
+  border: 2px solid black;
+  height: 125px;
+  width: 125px;
+  text-align: center;
+  padding-top: 60px;
+}
+
+.deal button{
+  height: 50px;
+  width: 80px;
+  box-shadow: 2px 2px 2px;
+}

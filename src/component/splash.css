@@ -1,0 +1,21 @@
+.splash-page{
+  width: 66%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 75px;
+}
+
+
+.focus h1{
+  font-size: 75px;
+}
+
+.focus h2{
+  margin-top: 25px;
+  font-size: 50px;
+}
+
+.about{
+  margin-top: 50px;
+}

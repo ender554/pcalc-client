@@ -1,0 +1,11 @@
+.button-navs {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+button{
+  margin-left: 20px;
+  margin-right: 20px;
+}
