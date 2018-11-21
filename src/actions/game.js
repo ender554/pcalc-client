@@ -23,6 +23,12 @@ export const fetchGameError = error => ({
   error
 })
 
+export const IDEAL_CARD = 'IDEAL_CARD';
+export const fetchIdealCards = (hand) => ({
+  type: IDEAL_CARD,
+  hand
+})
+
 export const HOLD_CARD = 'HOLD_CARD';
 export const fetchHoldCard = (hand) => ({
   type: HOLD_CARD,
@@ -36,5 +42,6 @@ export const fetchGame = () => {
   .then(game => dispatchEvent(fetchGameSuccess(game)))
   .then(hand => dispatchEvent(fetchHand(hand)))
   .then(hand => dispatchEvent(fetchHoldCard(hand)))
+  .then(hand => dispatchEvent(fetchIdealCards(hand)))
   .catch(err => dispatchEvent(fetchGameError(err)))
 }

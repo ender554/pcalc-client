@@ -1,6 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import {grader} from '../grader';
 
 import './training.css';
 import { fetchHand } from '../actions/game';
@@ -9,7 +10,10 @@ import { fetchHoldCard } from '../actions/game';
 // import Deck from "react-poker";
 const { decks } = require('cards');
 
-
+const gradeTheHand = function(hand){
+   const bestHand = grader(hand);
+   console.log(bestHand);
+}
 
 
 
@@ -19,7 +23,6 @@ class Training extends Component {
     this.dealHand();
   }
   render() {
-    console.log(this.props.cards);
     const board = this.renderTheBoard(this.props.cards);
     return (
       <div className="deal"><button onClick={() => this.dealHand()}>Deal</button>
@@ -27,6 +30,10 @@ class Training extends Component {
       </div>
     );
 
+  }
+
+  grade(cards){
+    gradeTheHand(cards);
   }
 
   renderTheBoard(hand) {
@@ -37,7 +44,7 @@ class Training extends Component {
         >          
           {this.deckRender(hand)}
         </ul>
-        <button>Confirm</button>
+        <button onClick={()=> this.grade(this.props.cards)}>Confirm</button>
       </div>
     )
   }
@@ -66,6 +73,8 @@ class Training extends Component {
       {card.rank} {card.suit}
     </li>
   }
+
+
 
   dealHand() {
     const deck = new decks.StandardDeck({ jokers: 0 });

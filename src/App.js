@@ -16,7 +16,7 @@ function App(){
         <div className="App">
           <NavBar />
           <Main />
-          <DevState />
+          {/* <DevState /> */}
           <Switch>
             <Redirect exact from='/' to='/splash' />
             <Route exact path='/splash' component={Splash} />

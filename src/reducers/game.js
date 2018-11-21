@@ -8,35 +8,41 @@ const initialState = {
     {
       rank: "a",
       suit: "s",
-      held: false
+      held: false,
+      ideal: false
     },
     {
       rank: "a",
       suit: "s",
-      held: false
+      held: false,
+      ideal: false
     },
     {
       rank: "a",
       suit: "s",
-      held: false
+      held: false,
+      ideal: false
     },
     {
       rank: "a",
       suit: "s",
-      held: false
+      held: false,
+      ideal: true
     },
     {
       rank: "a",
       suit: "s",
-      held: false
+      held: false,
+      ideal: false
     }
   ],
   score: 0,
+  hand: false,
   error: null
 }
 
 export default function Reducer(state = initialState, action) {
-  console.log(state, action);
+  // console.log(state, action);
 
   switch (action.type) {
     case AUTH_SUCCESS: {
@@ -53,7 +59,8 @@ export default function Reducer(state = initialState, action) {
         const card = {
           suit: action.hand[i].suit.name,
           rank: action.hand[i].rank.shortName,
-          held: false
+          held: false, 
+          ideal: state.cards[i].ideal
         }
         newHand.push(card);
       }
@@ -73,7 +80,8 @@ export default function Reducer(state = initialState, action) {
           const card = {
             suit: state.cards[i].suit,
             rank: state.cards[i].rank,
-            held: !state.cards[i].held
+            held: !state.cards[i].held,
+            ideal: state.cards[i].ideal
           }
           heldHand.push(card);
         }
@@ -81,7 +89,8 @@ export default function Reducer(state = initialState, action) {
           const card = {
             suit: state.cards[i].suit,
             rank: state.cards[i].rank,
-            held: state.cards[i].held
+            held: state.cards[i].held,
+            ideal: state.cards[i].ideal
           }
           heldHand.push(card);
         }
