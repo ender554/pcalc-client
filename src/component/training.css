@@ -22,3 +22,7 @@
   width: 80px;
   box-shadow: 2px 2px 2px;
 }
+
+.held{
+  background-color: red;
+}

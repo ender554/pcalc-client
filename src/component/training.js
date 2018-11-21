@@ -15,13 +15,34 @@ const { decks } = require('cards');
 
 class Training extends Component {
 
+
+  heldCard(card, i) {
+    return <li
+      key={i}
+      value={i}
+      className="held"
+    >
+      {card.rank} {card.suit}
+    </li>
+  }
+
+  openCard(card, i){
+    return <li
+      key={i}
+      value={i}
+    >
+      {card.rank} {card.suit}
+    </li>
+  }
+
   deckRender(hand) {
     return hand.map((card, i) => {
-      return <li
-        key={i}
-        value={i}
-      >{card.rank} {card.suit} {card.held.value}
-      </li>
+      // return <li
+      //   key={i}
+      //   value={i}
+      // >{card.rank} {card.suit} 
+      // </li>
+      return (card.held ? this.heldCard(card, i) : this.openCard(card, i))
     }
     )
   };

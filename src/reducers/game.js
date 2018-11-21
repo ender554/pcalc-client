@@ -46,7 +46,7 @@ export default function Reducer(state = initialState, action) {
     }
 
     case HOLD_CARD: {
-      console.log('holding card' + action.hand + " " + state.cards[action.hand].suit);
+      // console.log('holding card' + action.hand + " " + state.cards[action.hand].suit);
       const heldHand = [];
       for(let i = 0; i < state.cards.length; i++){
         if(i === action.hand){
@@ -61,7 +61,7 @@ export default function Reducer(state = initialState, action) {
           const card = {
             suit: state.cards[i].suit,
             rank: state.cards[i].rank,
-            held: state
+            held: state.cards[i].held
           }
           heldHand.push(card);
         }
