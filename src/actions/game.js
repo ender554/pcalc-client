@@ -40,8 +40,8 @@ export const fetchGame = () => {
   return fetch(`${API_BASE_URL}/api/game`)
   .then(res => res.json())
   .then(game => dispatchEvent(fetchGameSuccess(game)))
-  .then(hand => dispatchEvent(fetchHand(hand)))
   .then(hand => dispatchEvent(fetchHoldCard(hand)))
   .then(hand => dispatchEvent(fetchIdealCards(hand)))
+  .then(hand => dispatchEvent(fetchHand(hand)))
   .catch(err => dispatchEvent(fetchGameError(err)))
 }

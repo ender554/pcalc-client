@@ -1,4 +1,4 @@
-import { FETCH_GAME_REQUEST, FETCH_GAME_SUCCESS, FETCH_GAME_ERROR, FETCH_HAND, HOLD_CARD } from '../actions/game';
+import { FETCH_GAME_REQUEST, FETCH_GAME_SUCCESS, FETCH_GAME_ERROR, FETCH_HAND, HOLD_CARD, IDEAL_CARD } from '../actions/game';
 import { AUTH_SUCCESS } from '../actions/auth';
 
 const initialState = {
@@ -27,7 +27,7 @@ const initialState = {
       rank: "a",
       suit: "s",
       held: false,
-      ideal: true
+      ideal: false
     },
     {
       rank: "a",
@@ -55,17 +55,17 @@ export default function Reducer(state = initialState, action) {
 
     case FETCH_HAND: {
       const newHand = [];
-      for(let i = 0; i < action.hand.length; i++){
+      for (let i = 0; i < action.hand.length; i++) {
         const card = {
           suit: action.hand[i].suit.name,
           rank: action.hand[i].rank.shortName,
-          held: false, 
-          ideal: state.cards[i].ideal
+          held: false,
+          ideal: false
         }
         newHand.push(card);
       }
 
-      return{
+      return {
         ...state,
         loading: false,
         cards: newHand
@@ -75,13 +75,14 @@ export default function Reducer(state = initialState, action) {
     case HOLD_CARD: {
       // console.log('holding card' + action.hand + " " + state.cards[action.hand].suit);
       const heldHand = [];
-      for(let i = 0; i < state.cards.length; i++){
-        if(i === action.hand){
+      // console.log(action.hand);
+      for (let i = 0; i < state.cards.length; i++) {
+        if (i === action.hand) {
           const card = {
             suit: state.cards[i].suit,
             rank: state.cards[i].rank,
             held: !state.cards[i].held,
-            ideal: state.cards[i].ideal
+            ideal: false
           }
           heldHand.push(card);
         }
@@ -90,7 +91,7 @@ export default function Reducer(state = initialState, action) {
             suit: state.cards[i].suit,
             rank: state.cards[i].rank,
             held: state.cards[i].held,
-            ideal: state.cards[i].ideal
+            ideal: false
           }
           heldHand.push(card);
         }
@@ -99,6 +100,26 @@ export default function Reducer(state = initialState, action) {
         ...state,
         loading: false,
         cards: heldHand
+      }
+    }
+
+    case IDEAL_CARD: {
+      console.log('fetching cards');
+      const idealCards = [];
+      for (let i = 0; i < state.cards.length; i++) {
+        const card = {
+          suit: state.cards[i].suit,
+          rank: state.cards[i].rank,
+          held: !state.cards[i].held,
+          ideal: action.hand[i].ideal
+        }
+        idealCards.push(card);
+      }
+
+      return {
+        ...state,
+        loading: false,
+        cards: idealCards
       }
     }
 
@@ -111,7 +132,7 @@ export default function Reducer(state = initialState, action) {
       }
     }
     case FETCH_GAME_SUCCESS: {
-      return{
+      return {
         ...state,
         cards: action.cards,
         loggedIn: true,
@@ -119,14 +140,14 @@ export default function Reducer(state = initialState, action) {
       }
     }
     case FETCH_GAME_ERROR: {
-      return{
+      return {
         ...state,
         loading: false,
         error: action.error
       }
     }
 
-    
+
 
     default: {
       return state;

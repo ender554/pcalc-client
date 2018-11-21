@@ -1,18 +1,16 @@
 import React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import {grader} from '../grader';
+import { grader } from '../grader';
 
 import './training.css';
-import { fetchHand } from '../actions/game';
-import { fetchHoldCard } from '../actions/game';
+import { fetchHoldCard, fetchIdealCards, fetchHand } from '../actions/game';
 
 // import Deck from "react-poker";
 const { decks } = require('cards');
 
-const gradeTheHand = function(hand){
-   const bestHand = grader(hand);
-   console.log(bestHand);
+const gradeTheHand = function (hand) {
+  return grader(hand);
 }
 
 
@@ -32,8 +30,8 @@ class Training extends Component {
 
   }
 
-  grade(cards){
-    gradeTheHand(cards);
+  grade(cards) {
+    this.props.dispatch(fetchIdealCards(gradeTheHand(cards)));
   }
 
   renderTheBoard(hand) {
@@ -41,10 +39,10 @@ class Training extends Component {
       <div className="game-component" >
         <ul className="hand"
           onClick={(target) => this.props.dispatch(fetchHoldCard(target.target.value))}
-        >          
+        >
           {this.deckRender(hand)}
         </ul>
-        <button onClick={()=> this.grade(this.props.cards)}>Confirm</button>
+        <button onClick={() => this.grade(this.props.cards)}>Confirm</button>
       </div>
     )
   }
@@ -55,23 +53,46 @@ class Training extends Component {
     )
   };
 
+
   heldCard(card, i) {
-    return <li
-      key={i}
-      value={i}
-      className="held"
-    >
-      {card.rank} {card.suit}
-    </li>
+    console.log(card);
+
+    if (card.ideal) {
+      return <li
+        key={i}
+        value={i}
+        className="ideal"
+      >
+        {card.rank} {card.suit}
+      </li>
+    } else {
+      return <li
+        key={i}
+        value={i}
+        className="held"
+      >
+        {card.rank} {card.suit}
+      </li>
+    }
   }
 
-  openCard(card, i){
-    return <li
-      key={i}
-      value={i}
-    >
-      {card.rank} {card.suit}
-    </li>
+  openCard(card, i) {
+    if (card.ideal) {
+      return <li
+        key={i}
+        value={i}
+        className="ideal"
+      >
+        {card.rank} {card.suit}
+      </li>
+    } else {
+      return <li
+        key={i}
+        value={i}
+      >
+        {card.rank} {card.suit}
+      </li>
+    }
   }
 
 
@@ -83,14 +104,14 @@ class Training extends Component {
     this.props.dispatch(fetchHand(hand));
   }
 
-  
-  
 
-  
 
-  
 
-  
+
+
+
+
+
 
 }
 
