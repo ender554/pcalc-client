@@ -110,7 +110,7 @@ export default function Reducer(state = initialState, action) {
         const card = {
           suit: state.cards[i].suit,
           rank: state.cards[i].rank,
-          held: !state.cards[i].held,
+          held: state.cards[i].held,
           ideal: action.hand[i].ideal
         }
         idealCards.push(card);

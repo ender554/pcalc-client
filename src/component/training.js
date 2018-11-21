@@ -89,6 +89,7 @@ class Training extends Component {
       return <li
         key={i}
         value={i}
+        className="notHeld"
       >
         {card.rank} {card.suit}
       </li>

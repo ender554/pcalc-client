@@ -4,5 +4,6 @@ export const grader = (input) => {
   //   input[i].ideal = true;
   // }
   input[2].ideal = true;
+  input[4].ideal = true;
   return input;
 }
