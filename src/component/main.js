@@ -21,6 +21,6 @@ const Main = props => {
 }
 
 const mapStateToProps = state => {
-  return ({loggedIn: state.auth.currentUser != null});
+  return ({loggedIn: state.auth.authToken != null});
 } 
 export default connect(mapStateToProps)(Main);

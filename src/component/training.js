@@ -15,6 +15,38 @@ const { decks } = require('cards');
 
 class Training extends Component {
 
+  componentDidMount() {
+    this.dealHand();
+  }
+  render() {
+    console.log(this.props.cards);
+    const board = this.renderTheBoard(this.props.cards);
+    return (
+      <div className="deal"><button onClick={() => this.dealHand()}>Deal</button>
+        {board}
+      </div>
+    );
+
+  }
+
+  renderTheBoard(hand) {
+    return (
+      <div className="game-component" >
+        <ul className="hand"
+          onClick={(target) => this.props.dispatch(fetchHoldCard(target.target.value))}
+        >          
+          {this.deckRender(hand)}
+        </ul>
+        <button>Confirm</button>
+      </div>
+    )
+  }
+  deckRender(hand) {
+    return hand.map((card, i) => {
+      return (card.held ? this.heldCard(card, i) : this.openCard(card, i))
+    }
+    )
+  };
 
   heldCard(card, i) {
     return <li
@@ -35,31 +67,6 @@ class Training extends Component {
     </li>
   }
 
-  deckRender(hand) {
-    return hand.map((card, i) => {
-      // return <li
-      //   key={i}
-      //   value={i}
-      // >{card.rank} {card.suit} 
-      // </li>
-      return (card.held ? this.heldCard(card, i) : this.openCard(card, i))
-    }
-    )
-  };
-
-  renderTheBoard(hand) {
-    return (
-      <div className="game-component" >
-        <ul className="hand"
-          onClick={(target) => this.props.dispatch(fetchHoldCard(target.target.value))}
-        >
-          {(this.deckRender(hand))}
-        </ul>
-        <button>Confirm</button>
-      </div>
-    )
-  }
-
   dealHand() {
     const deck = new decks.StandardDeck({ jokers: 0 });
     deck.shuffleAll();
@@ -67,18 +74,14 @@ class Training extends Component {
     this.props.dispatch(fetchHand(hand));
   }
 
-  componentDidMount() {
-    this.dealHand();
-  }
-  render() {
-    const board = this.renderTheBoard(this.props.cards);
-    return (
-      <div className="deal"><button onClick={() => this.dealHand()}>Deal</button>
-        {board}
-      </div>
-    );
+  
+  
 
-  }
+  
+
+  
+
+  
 
 }
 

@@ -3,6 +3,7 @@ import Training from './component/training';
 // import ReactDOM from 'react-dom';
 import { NavBar } from './component/navbar';
 import {Splash} from './component/splash';
+import DevState from './component/devState';
 import Main from './component/main';
 import LoginForm from './component/login';
 import {HistoryPage} from './component/history';
@@ -15,6 +16,7 @@ function App(){
         <div className="App">
           <NavBar />
           <Main />
+          <DevState />
           <Switch>
             <Redirect exact from='/' to='/splash' />
             <Route exact path='/splash' component={Splash} />

@@ -6,8 +6,28 @@ const initialState = {
   loading: false,
   cards: [
     {
-      rank: "",
-      suit: "",
+      rank: "a",
+      suit: "s",
+      held: false
+    },
+    {
+      rank: "a",
+      suit: "s",
+      held: false
+    },
+    {
+      rank: "a",
+      suit: "s",
+      held: false
+    },
+    {
+      rank: "a",
+      suit: "s",
+      held: false
+    },
+    {
+      rank: "a",
+      suit: "s",
       held: false
     }
   ],
@@ -16,12 +36,12 @@ const initialState = {
 }
 
 export default function Reducer(state = initialState, action) {
-  // console.log(state, action);
+  console.log(state, action);
 
   switch (action.type) {
     case AUTH_SUCCESS: {
       return {
-        state,
+        ...state,
         loggedIn: true,
         error: null
       }
