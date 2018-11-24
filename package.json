@@ -6,6 +6,7 @@
     "cards": "^1.0.1",
     "jwt-decode": "^2.2.0",
     "mongodb": "^3.1.9",
+    "pokersolver": "^2.1.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-poker": "0.0.77",

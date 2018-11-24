@@ -30,9 +30,12 @@ class Training extends Component {
 
   }
 
-  grade(cards) {
-    this.props.dispatch(fetchIdealCards(gradeTheHand(cards)));
+  grade(cards){
+    alert(gradeTheHand(cards));
   }
+    // return (
+    //   alert(gradeTheHand(cards)
+    //   ),
 
   renderTheBoard(hand) {
     return (
@@ -55,8 +58,6 @@ class Training extends Component {
 
 
   heldCard(card, i) {
-    console.log(card);
-
     if (card.ideal) {
       return <li
         key={i}
