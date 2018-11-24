@@ -31,6 +31,13 @@ class Training extends Component {
   }
 
   grade(cards){
+    for(let i = 0; i < cards.length; i++){
+      if(cards[i].rank === '10'){
+        cards[i].rank = 'T';
+      }
+    }
+    console.log(cards);
+
     let holdCards = gradeTheHand(cards);
     var keys = Object.keys(holdCards);
     let keepers = [];
@@ -47,9 +54,18 @@ class Training extends Component {
   }
 
   setIdeal(keepers){
+    let keepersSuit = '';
+    let keepersRank = '';
+    let keeperArr = [];
     for(let i = 0; i < keepers.length ; i++){
-      console.log(keepers);
+      keepersSuit = keepers[i].charAt(keepers[i].length - 1);
+      keepersRank = keepers[i].charAt(0);
+      if(keepersRank === 'T'){
+        keepersRank = '10';
+      }
+      keeperArr[i] = keepersRank + keepersSuit;
     }
+    console.log(keeperArr);
   }
 
   renderTheBoard(hand) {
