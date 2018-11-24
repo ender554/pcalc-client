@@ -31,11 +31,26 @@ class Training extends Component {
   }
 
   grade(cards){
-    alert(gradeTheHand(cards));
+    let holdCards = gradeTheHand(cards);
+    var keys = Object.keys(holdCards);
+    let keepers = [];
+    keys.forEach( function(key) {
+      let values = holdCards[key]
+      if(key === "cards"){
+        values.forEach( function(value) {
+          let individual = `${value.value}${value.suit}`;
+          keepers.push(individual);
+        })
+      }
+    });
+    this.setIdeal(keepers);
   }
-    // return (
-    //   alert(gradeTheHand(cards)
-    //   ),
+
+  setIdeal(keepers){
+    for(let i = 0; i < keepers.length ; i++){
+      console.log(keepers);
+    }
+  }
 
   renderTheBoard(hand) {
     return (

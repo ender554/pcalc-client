@@ -57,7 +57,7 @@ export default function Reducer(state = initialState, action) {
       const newHand = [];
       for (let i = 0; i < action.hand.length; i++) {
         const card = {
-          suit: action.hand[i].suit.name,
+          suit: action.hand[i].suit.name.charAt(0),
           rank: action.hand[i].rank.shortName,
           held: false,
           ideal: false
@@ -79,7 +79,7 @@ export default function Reducer(state = initialState, action) {
       for (let i = 0; i < state.cards.length; i++) {
         if (i === action.hand) {
           const card = {
-            suit: state.cards[i].suit,
+            suit: state.cards[i].suit.name.charAt(0),
             rank: state.cards[i].rank,
             held: !state.cards[i].held,
             ideal: false
@@ -88,7 +88,7 @@ export default function Reducer(state = initialState, action) {
         }
         else {
           const card = {
-            suit: state.cards[i].suit,
+            suit: state.cards[i].suit.name.charAt(0),
             rank: state.cards[i].rank,
             held: state.cards[i].held,
             ideal: false
@@ -108,7 +108,7 @@ export default function Reducer(state = initialState, action) {
       const idealCards = [];
       for (let i = 0; i < state.cards.length; i++) {
         const card = {
-          suit: state.cards[i].suit,
+          suit: state.cards[i].suit.name.charAt(0),
           rank: state.cards[i].rank,
           held: state.cards[i].held,
           ideal: action.hand[i].ideal
