@@ -18,13 +18,10 @@ export const grader = (input) => {
   
   for(let j = 0; j < input.length; j++){
     for(let i = 0; i < winnerArr.length; i++){
-      // console.log((winnerArr[i].suit === input[j].suit) && (winnerArr[i].rank === input[j].rank));
       if((winnerArr[i].suit === input[j].suit) && (winnerArr[i].rank === input[j].rank)){
         input[j].ideal = true;
       }
     }
-    console.log(input);
-    // console.log(input[j].suit);
   }
   return input;
 
@@ -83,8 +80,6 @@ const setFormat = (keepers) => {
       keeperObjArr.push(keeperObj);
     }
     return keeperObjArr;
-    // console.log(this.props.cards);
-    // console.log(keeperArr);
   }
 
   const expandSuit = (arrOfCards) => {
@@ -98,9 +93,7 @@ const setFormat = (keepers) => {
       }else if(arrOfCards[i].suit === 'd'){
         arrOfCards[i].suit = 'diamonds'
       }
-      // console.log(arrOfCards[i].suit);
     }
 
     return arrOfCards;
-    // console.log(arrOfCards);
   }
