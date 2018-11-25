@@ -12,6 +12,7 @@ const Main = props => {
         <Link to='/userHistory'><button>View History</button></Link>
         <Link to='/userNotes'><button>View Notes</button></Link>
         <Link to='/training'><button>New Training</button></Link>
+        <Link to='/logout'><button>Log Out</button></Link>
       </div>
     )
   }
