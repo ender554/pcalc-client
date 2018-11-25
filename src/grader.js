@@ -9,6 +9,13 @@ export const grader = (input) => {
     winnerArr.push(formattedWinners[i]);
   }
   winners = expandSuit(winners);
+  
+  for(let i = 0; i < input.length; i++){
+    if(input[i].rank === 'T'){
+      input[i].rank = '10';
+    }
+  }
+  
   for(let j = 0; j < input.length; j++){
     for(let i = 0; i < winnerArr.length; i++){
       // console.log((winnerArr[i].suit === input[j].suit) && (winnerArr[i].rank === input[j].rank));
@@ -16,6 +23,8 @@ export const grader = (input) => {
         input[j].ideal = true;
       }
     }
+    console.log(input);
+    // console.log(input[j].suit);
   }
   return input;
 
