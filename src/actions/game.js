@@ -33,6 +33,19 @@ export const HOLD_CARD = 'HOLD_CARD';
 export const fetchHoldCard = (hand) => ({
   type: HOLD_CARD,
   hand
+})
+
+export const FETCH_GAME_DATA = 'FETCH_GAME_DATA';
+export const fetchGameData = (game) => ({
+  type: FETCH_GAME_DATA,
+  game
+})
+
+export const UPDATE_GAME = 'UPDATE_GAME';
+export const updateGame = (handsPlayed, score) => ({
+  type: UPDATE_GAME,
+  handsPlayed,
+  score
 });
 
 export const fetchGame = () => {
@@ -43,5 +56,7 @@ export const fetchGame = () => {
   .then(hand => dispatchEvent(fetchHoldCard(hand)))
   .then(hand => dispatchEvent(fetchIdealCards(hand)))
   .then(hand => dispatchEvent(fetchHand(hand)))
+  .then((handsPlayed, score) => dispatchEvent(updateGame(handsPlayed, score)))
+  .then(game => dispatchEvent(fetchGameData(game)))
   .catch(err => dispatchEvent(fetchGameError(err)))
 }

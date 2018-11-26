@@ -1,4 +1,7 @@
-import { FETCH_GAME_REQUEST, FETCH_GAME_SUCCESS, FETCH_GAME_ERROR, FETCH_HAND, HOLD_CARD, IDEAL_CARD } from '../actions/game';
+import {
+  FETCH_GAME_REQUEST, FETCH_GAME_SUCCESS, FETCH_GAME_ERROR, FETCH_HAND, HOLD_CARD,
+  UPDATE_GAME, IDEAL_CARD, FETCH_GAME_DATA
+} from '../actions/game';
 import { AUTH_SUCCESS } from '../actions/auth';
 
 const initialState = {
@@ -37,7 +40,9 @@ const initialState = {
     }
   ],
   hand: false,
-  error: null
+  error: null,
+  handsPlayed: 0,
+  score: 0,
 }
 
 export default function Reducer(state = initialState, action) {
@@ -123,6 +128,16 @@ export default function Reducer(state = initialState, action) {
       }
     }
 
+    case UPDATE_GAME: {
+      console.log('updating Game actions are ' + action.score + " and " + action.handsPlayed);
+      return{
+        ...state,
+        score: action.score,
+        handsPlayed: action.handsPlayed
+
+      }
+    }
+
     case FETCH_GAME_REQUEST: {
       console.log('fetch game request');
       return {
@@ -144,6 +159,12 @@ export default function Reducer(state = initialState, action) {
         ...state,
         loading: false,
         error: action.error
+      }
+    }
+
+    case FETCH_GAME_DATA: {
+      return {
+        ...state
       }
     }
 

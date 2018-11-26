@@ -8,12 +8,14 @@ export function Splash(){
       <div className="focus">
         <h1>Welcome to PCAP!</h1>
         <h2>Where Video Poker is your Ticket to Freebies</h2>
-        <p className="about">Contrary to popular belief, Lorem Ipsum is not simply random text. 
-          It has roots in a piece of classical Latin literature from 45 BC, 
-          making it over 2000 years old. Richard McClintock, a Latin professor 
-          at Hampden-Sydney College in Virginia, looked up one of the 
-          more obscure Latin words, consectetur, from a Lorem Ipsum passage, 
-          and going through the cites of the word in classical literature, 
+        <p className="about">Contrary to popular belief, Not all casino games are negative equity!
+        In fact some forms of video poker have positive equity! If played completely correctly
+        video poker games return anywhere from 99.76% to 100.43% if played with perfect strategy!
+
+        This app is to give you that perfect strategy!
+
+
+        WARNING:::::::: LOGIC NOT CURRENTLY CORRECTLY FUNCTIONAL DO NOT USE FOR TRUE ADVICE 
         </p>
       </div>
     </div>

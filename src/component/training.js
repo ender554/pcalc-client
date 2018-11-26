@@ -2,9 +2,9 @@ import React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { grader } from '../grader';
-
+import { saveUserData } from '../actions/auth';
 import './training.css';
-import { fetchHoldCard, fetchIdealCards, fetchHand } from '../actions/game';
+import { fetchHoldCard, fetchIdealCards, fetchHand, updateGame } from '../actions/game';
 
 // import Deck from "react-poker";
 const { decks } = require('cards');
@@ -40,6 +40,7 @@ class Training extends Component {
     this.props.dispatch(fetchIdealCards(gradeTheHand(cards)));
     handsPlayed++;
     this.calculateScore(cards);
+    this.props.dispatch(updateGame(handsPlayed, score));
   }
   calculateScore(hand) {
     let counter = 0;
@@ -63,6 +64,7 @@ class Training extends Component {
           {this.deckRender(hand)}
         </ul>
         <button onClick={() => this.grade(this.props.cards)}>Confirm</button>
+        <button onClick={() => this.saveGame(this.props.game)}>Save</button>
       </div>
     )
   }
@@ -115,6 +117,16 @@ class Training extends Component {
   }
 
 
+  saveGame() {
+    console.log('clicked save');
+    return (this.props.dispatch(saveUserData(this.props.game)));
+    console.log(this.props);
+
+    //dispatch an action, 
+    //async action to make ajax request
+    //to api/users/:id
+    //
+  }
 
   dealHand() {
     const deck = new decks.StandardDeck({ jokers: 0 });
@@ -136,6 +148,7 @@ class Training extends Component {
 
 const mapStateToProps = (state) => {
   return ({
+    game: state.game,
     cards: state.game.cards
   });
 }

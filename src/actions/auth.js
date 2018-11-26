@@ -4,6 +4,7 @@ import {SubmissionError} from 'redux-form';
 import {API_BASE_URL} from '../config';
 import {normalizeResponseErrors} from './utils';
 import {saveAuthToken, clearAuthToken} from '../local-storage';
+import { fetchGameData } from '../actions/game';
 
 
 export const SET_AUTH_TOKEN = 'SET_AUTH_TOKEN';
@@ -77,6 +78,33 @@ export const login = (username, password) => dispatch => {
           })
   );
 };
+
+export const saveUserData = () => (dispatch, getState) => {
+    dispatch(fetchGameData());
+    const score = getState().game.score;
+    const handsPlayed = getState().game.handsPlayed;
+    const userID = getState().auth.currentUser.id;
+    const authToken = getState().auth.authToken;
+    console.log(score);
+    const dataObject = {
+        handsPlayed,
+        score
+    }
+    console.log(dataObject);
+    return fetch(`${API_BASE_URL}/api/users/${userID}`, {
+        method: 'PUT',
+        headers: {
+            // Provide our existing token as credentials to get a new one
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authToken}`
+        },
+        body: JSON.stringify(
+            dataObject
+        )
+   })
+    .then(res => normalizeResponseErrors(res))
+    .catch(err => console.log('there was an err :' + err));
+}
 
 export const refreshAuthToken = () => (dispatch, getState) => {
   dispatch(authRequest());

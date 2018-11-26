@@ -11,7 +11,8 @@ const passwordLength = length({ min: 10, max: 72 });
 
 export class LoginForm extends React.Component {
   onSubmitLogin(values) {
-    return this.props.dispatch(login(values.username, values.password))
+    return (this.props.dispatch(login(values.username, values.password))
+    .then(this.props.history.push('/')))
   }
   onSubmitRegister(values) {
     const { username, password } = values;
