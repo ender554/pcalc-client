@@ -8,8 +8,12 @@ import { fetchHoldCard, fetchIdealCards, fetchHand } from '../actions/game';
 
 // import Deck from "react-poker";
 const { decks } = require('cards');
+let score = 0;
+let handsPlayed = 0;
+let correctGuess = 0;
 
 const gradeTheHand = function (hand) {
+
   return grader(hand);
 }
 
@@ -24,6 +28,8 @@ class Training extends Component {
     const board = this.renderTheBoard(this.props.cards);
     return (
       <div className="deal"><button onClick={() => this.dealHand()}>Deal</button>
+        <p>Hands Played: {handsPlayed}</p>
+        <p>Score: {score}</p>
         {board}
       </div>
     );
@@ -32,6 +38,20 @@ class Training extends Component {
 
   grade(cards) {
     this.props.dispatch(fetchIdealCards(gradeTheHand(cards)));
+    handsPlayed++;
+    this.calculateScore(cards);
+  }
+  calculateScore(hand) {
+    let counter = 0;
+    for (let i = 0; i < hand.length; i++) {
+      if (hand[i].held === hand[i].ideal) {
+        counter++;
+      }
+    }
+    if (counter === 5) {
+      correctGuess++;
+    }
+    score = correctGuess / handsPlayed;
   }
 
   renderTheBoard(hand) {

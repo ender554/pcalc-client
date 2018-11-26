@@ -36,7 +36,6 @@ const initialState = {
       ideal: false
     }
   ],
-  score: 0,
   hand: false,
   error: null
 }
@@ -68,7 +67,8 @@ export default function Reducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        cards: newHand
+        cards: newHand,
+        handsPlayed: +1
       }
     }
 
