@@ -3,8 +3,11 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { grader } from '../grader';
 import { saveUserData } from '../actions/auth';
+
 import './training.css';
-import { fetchHoldCard, fetchIdealCards, fetchHand, updateGame } from '../actions/game';
+import './notes.css';
+
+import { fetchHoldCard, fetchIdealCards, fetchHand, updateGame, updateNote } from '../actions/game';
 
 // import Deck from "react-poker";
 const { decks } = require('cards');
@@ -21,19 +24,43 @@ const gradeTheHand = function (hand) {
 
 class Training extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      showModal: false
+    };
+  }
+
   componentDidMount() {
     this.dealHand();
   }
   render() {
     const board = this.renderTheBoard(this.props.cards);
+
     return (
       <div className="deal"><button onClick={() => this.dealHand()}>Deal</button>
+        <button onClick={() => this.showNotes()}>Notes</button>
+        {this.state.showModal && this.renderNotes()}
         <p>Hands Played: {handsPlayed}</p>
         <p>Score: {score}</p>
         {board}
       </div>
     );
 
+  }
+
+  renderNotes() {
+    return (
+      <div className="noteModal">
+        <input 
+          type="text"
+          onChange={e => this.updateTheNote(e.currentTarget.value)}
+          defaultValue={this.props.note}
+        ></input>
+        <button onClick={e => this.setState({showModal: false})}>Close</button>
+
+      </div>
+    )
   }
 
   grade(cards) {
@@ -62,12 +89,24 @@ class Training extends Component {
           onClick={(target) => this.props.dispatch(fetchHoldCard(target.target.value))}
         >
           {this.deckRender(hand)}
+          {/* {this.showNotes()} */}
         </ul>
+
         <button onClick={() => this.grade(this.props.cards)}>Confirm</button>
         <button onClick={() => this.saveGame(this.props.game)}>Save</button>
       </div>
     )
   }
+
+  showNotes() {
+    this.setState({ showModal: true })
+  }
+
+  updateTheNote(value) {
+    console.log('changing Notes');
+    this.props.dispatch(updateNote(value))
+  }
+
   deckRender(hand) {
     return hand.map((card, i) => {
       return (card.held ? this.heldCard(card, i) : this.openCard(card, i))
@@ -132,7 +171,8 @@ class Training extends Component {
 const mapStateToProps = (state) => {
   return ({
     game: state.game,
-    cards: state.game.cards
+    cards: state.game.cards,
+    note: state.game.note
   });
 }
 

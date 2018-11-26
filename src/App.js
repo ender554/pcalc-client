@@ -1,7 +1,8 @@
 import React from 'react';
 import Training from './component/training';
 import Game from './component/game';
-import Logout from './component/logout'
+import Logout from './component/logout';
+import {Notes} from './component/notes';
 // import ReactDOM from 'react-dom';
 import { NavBar } from './component/navbar';
 import {Splash} from './component/splash';
@@ -27,6 +28,7 @@ function App(){
             <Route exact path='/history' component={HistoryPage} />
             <Route exact path='/game' component={Game} />
             <Route exact path='/logout' component={Logout} />
+            <Route exact path='/userNotes' component={Notes} />
           </Switch>
           
         </div>

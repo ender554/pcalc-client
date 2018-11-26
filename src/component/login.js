@@ -20,7 +20,8 @@ export class LoginForm extends React.Component {
 
     return this.props
       .dispatch(registerUser(user))
-      .then(() => this.props.dispatch(login(username, password)));
+      .then(() => this.props.dispatch(login(username, password)))
+      .then(this.props.history.push('/'));
   }
 
   render() {

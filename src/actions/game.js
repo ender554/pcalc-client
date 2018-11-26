@@ -41,12 +41,19 @@ export const fetchGameData = (game) => ({
   game
 })
 
+export const UPDATE_NOTE = 'UPDATE_NOTE';
+export const updateNote = (note) => ({
+  type: UPDATE_NOTE,
+  note
+})
+
 export const UPDATE_GAME = 'UPDATE_GAME';
 export const updateGame = (handsPlayed, score) => ({
   type: UPDATE_GAME,
   handsPlayed,
   score
 });
+
 
 export const fetchGame = () => {
   dispatchEvent(fetchGameRequest());
@@ -57,6 +64,7 @@ export const fetchGame = () => {
   .then(hand => dispatchEvent(fetchIdealCards(hand)))
   .then(hand => dispatchEvent(fetchHand(hand)))
   .then((handsPlayed, score) => dispatchEvent(updateGame(handsPlayed, score)))
+  .then(game => dispatchEvent(updateNote(game)))
   .then(game => dispatchEvent(fetchGameData(game)))
   .catch(err => dispatchEvent(fetchGameError(err)))
 }

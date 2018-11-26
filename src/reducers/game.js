@@ -1,6 +1,6 @@
 import {
   FETCH_GAME_REQUEST, FETCH_GAME_SUCCESS, FETCH_GAME_ERROR, FETCH_HAND, HOLD_CARD,
-  UPDATE_GAME, IDEAL_CARD, FETCH_GAME_DATA
+  UPDATE_GAME, IDEAL_CARD, FETCH_GAME_DATA, UPDATE_NOTE
 } from '../actions/game';
 import { AUTH_SUCCESS } from '../actions/auth';
 
@@ -43,6 +43,7 @@ const initialState = {
   error: null,
   handsPlayed: 0,
   score: 0,
+  note: ""
 }
 
 export default function Reducer(state = initialState, action) {
@@ -125,6 +126,15 @@ export default function Reducer(state = initialState, action) {
         ...state,
         loading: false,
         cards: idealCards
+      }
+    }
+
+    case UPDATE_NOTE: {
+      console.log('updating notes');
+      console.log(action);
+      return{
+        ...state,
+        note: action.note
       }
     }
 

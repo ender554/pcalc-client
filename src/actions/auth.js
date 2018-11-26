@@ -84,14 +84,17 @@ export const login = (username, password) => dispatch => {
 
 export const saveUserData = () => (dispatch, getState) => {
     dispatch(fetchGameData());
+    console.log(getState());
     const score = getState().game.score;
+    const note = getState().game.note;
     const handsPlayed = getState().game.handsPlayed;
     const userID = getState().auth.currentUser.id;
     const authToken = getState().auth.authToken;
     console.log(score);
     const dataObject = {
         handsPlayed,
-        score
+        score,
+        note
     }
     console.log(dataObject);
     return fetch(`${API_BASE_URL}/api/users/${userID}`, {

@@ -10,7 +10,6 @@ const Main = props => {
         {/* <button onClick={props.loggedIn = !props.loggedIn}>Log Out</button> */}
         <Link to='/game'><button>New Game</button></Link>
         <Link to='/userHistory'><button>View History</button></Link>
-        <Link to='/userNotes'><button>View Notes</button></Link>
         <Link to='/training'><button>New Training</button></Link>
         <Link to='/logout'><button>Log Out</button></Link>
       </div>
