@@ -118,14 +118,7 @@ class Training extends Component {
 
 
   saveGame() {
-    console.log('clicked save');
     return (this.props.dispatch(saveUserData(this.props.game)));
-    console.log(this.props);
-
-    //dispatch an action, 
-    //async action to make ajax request
-    //to api/users/:id
-    //
   }
 
   dealHand() {
@@ -134,16 +127,6 @@ class Training extends Component {
     const hand = deck.draw(5);
     this.props.dispatch(fetchHand(hand));
   }
-
-
-
-
-
-
-
-
-
-
 }
 
 const mapStateToProps = (state) => {

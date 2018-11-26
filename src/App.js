@@ -1,7 +1,7 @@
 import React from 'react';
 import Training from './component/training';
 import Game from './component/game';
-import {Logout} from './component/logout'
+import Logout from './component/logout'
 // import ReactDOM from 'react-dom';
 import { NavBar } from './component/navbar';
 import {Splash} from './component/splash';
