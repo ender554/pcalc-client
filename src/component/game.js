@@ -51,10 +51,20 @@ class Game extends Component {
     return (
       <div className="deal">
         {board}
+        <button onClick={() => this.restart()}>Reset</button>
         {this.state.showModal ? modal : ''}
       </div>
     );
 
+  }
+
+  restart() {
+    this.setState({
+      showModal: false,
+      hand: [{}, {}, {}, {}, {}],
+      currentCard: null,
+      graded: false
+    })
   }
 
   setCard(e) {
@@ -79,12 +89,12 @@ class Game extends Component {
         handCount++;
       }
     }
-    if(handCount === 5){
-    return (
-      <button
-        onClick={() => this.gradeTheHand(this.state.hand)}
-      >Submit</button>
-    )
+    if (handCount === 5) {
+      return (
+        <button
+          onClick={() => this.gradeTheHand(this.state.hand)}
+        >Submit</button>
+      )
     }
     else return (<div></div>)
   }
@@ -93,7 +103,7 @@ class Game extends Component {
 
   gradeTheHand(hand) {
     grader(hand);
-    this.setState({graded: true});
+    this.setState({ graded: true });
   }
 
   renderTheBoard(stuff) {

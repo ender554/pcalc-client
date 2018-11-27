@@ -15,7 +15,7 @@ import './App.css';
 function App(){
     return(
       <BrowserRouter>
-        <div className="App">
+        <div className="App main">
           <NavBar />
           <Main />
           {/* <DevState /> */}
