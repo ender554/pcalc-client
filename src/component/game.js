@@ -2,21 +2,13 @@ import React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { grader } from '../grader';
-import { Field, reduxForm } from 'redux-form';
-
 import './training.css';
 import { fetchHoldCard, fetchIdealCards, fetchHand } from '../actions/game';
 
 // import Deck from "react-poker";
-const { decks } = require('cards');
 
-const gradeTheHand = function (hand) {
-  return grader(hand);
-}
-
-
-
-class Training extends Component {
+class Game extends Component {
+  
 
   componentDidMount() {
     this.render();
@@ -31,97 +23,46 @@ class Training extends Component {
 
   }
 
-  grade(cards) {
-    this.props.dispatch(fetchIdealCards(gradeTheHand(cards)));
-  }
-
-  renderTheBoard(hand) {
+  renderTheBoard(stuff) {
     return (
       <div className="game-component" >
         <ul className="hand"
           onClick={(target) => this.props.dispatch(fetchHoldCard(target.target.value))}
         >
+          {this.deckRender(stuff)}
         </ul>
+
         <button onClick={() => this.grade(this.props.cards)}>Confirm</button>
       </div>
     )
   }
-  deckRender(hand) {
-    return hand.map((card, i) => {
-      return (card.held ? this.heldCard(card, i) : this.openCard(card, i))
+
+  deckRender(stuff) {
+    return stuff.map((card, i) => {
+      return (
+        <li
+          key={i}
+          value={i}
+          className="cardDrop"
+        >
+          random stuff
+        </li>
+      )
     }
     )
-  };
-
-  
-
-  heldCard(card, i) {
-    if (card.ideal) {
-      return <li
-        key={i}
-        value={i}
-        className="ideal"
-      >
-        {card.rank} {card.suit}
-      </li>
-    } else {
-      return <li
-        key={i}
-        value={i}
-        className="held"
-      >
-        {card.rank} {card.suit}
-      </li>
-    }
   }
-
-  openCard(card, i) {
-    if (card.ideal) {
-      return <li
-        key={i}
-        value={i}
-        className="ideal"
-      >
-        {card.rank} {card.suit}
-      </li>
-    } else {
-      return <li
-        key={i}
-        value={i}
-        className="notHeld"
-      >
-        {card.rank} {card.suit}
-      </li>
-    }
+  cardElement(thing, num) {
+    return thing;
   }
-
-
-
-  dealHand() {
-    const deck = new decks.StandardDeck({ jokers: 0 });
-    deck.shuffleAll();
-    const hand = deck.draw(5);
-    this.props.dispatch(fetchHand(hand));
-  }
-
-
-
-
-
-
-
-
-
-
 }
 
 const mapStateToProps = (state) => {
   return ({
-    cards: state.game.cards
+    game: state.game,
+    cards: state.game.cards,
+    note: state.game.note
   });
 }
 
-
-
-export default connect(mapStateToProps)(Training);
+export default connect(mapStateToProps)(Game);
 
