@@ -19,12 +19,12 @@ const gradeTheHand = function (hand) {
 class Training extends Component {
 
   componentDidMount() {
-    this.dealHand();
+    this.render();
   }
   render() {
     const board = this.renderTheBoard(this.props.cards);
     return (
-      <div className="deal"><button onClick={() => this.dealHand()}>Deal</button>
+      <div className="deal">
         {board}
       </div>
     );

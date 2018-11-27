@@ -7,7 +7,7 @@ import { saveUserData } from '../actions/auth';
 import './training.css';
 import './notes.css';
 
-import { fetchHoldCard, fetchIdealCards, fetchHand, updateGame, updateNote } from '../actions/game';
+import { fetchHoldCard, fetchIdealCards, fetchHand, updateGame, updateNote, resetGame } from '../actions/game';
 
 // import Deck from "react-poker";
 const { decks } = require('cards');
@@ -157,7 +157,14 @@ class Training extends Component {
 
 
   saveGame() {
-    return (this.props.dispatch(saveUserData(this.props.game)));
+    this.props.dispatch(saveUserData(this.props.game))
+    .then(this.props.dispatch(resetGame()))
+    .then(this.dealHand())
+    .then(
+      score = 0,
+      handsPlayed = 0,
+      correctGuess = 0
+    )
   }
 
   dealHand() {

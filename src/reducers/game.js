@@ -1,6 +1,6 @@
 import {
   FETCH_GAME_REQUEST, FETCH_GAME_SUCCESS, FETCH_GAME_ERROR, FETCH_HAND, HOLD_CARD,
-  UPDATE_GAME, IDEAL_CARD, FETCH_GAME_DATA, UPDATE_NOTE
+  UPDATE_GAME, IDEAL_CARD, FETCH_GAME_DATA, UPDATE_NOTE, RESET_GAME
 } from '../actions/game';
 import { AUTH_SUCCESS } from '../actions/auth';
 
@@ -55,6 +55,12 @@ export default function Reducer(state = initialState, action) {
         ...state,
         loggedIn: true,
         error: null
+      }
+    }
+
+    case RESET_GAME: {
+      return {
+        initialState
       }
     }
 
@@ -153,7 +159,8 @@ export default function Reducer(state = initialState, action) {
       return {
         state,
         loading: true,
-        error: null
+        error: null,
+        note: ''
       }
     }
     case FETCH_GAME_SUCCESS: {

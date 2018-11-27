@@ -47,6 +47,11 @@ export const updateNote = (note) => ({
   note
 })
 
+export const RESET_GAME = 'RESET_GAME';
+export const resetGame = () => ({
+  type: RESET_GAME,
+})
+
 export const UPDATE_GAME = 'UPDATE_GAME';
 export const updateGame = (handsPlayed, score) => ({
   type: UPDATE_GAME,

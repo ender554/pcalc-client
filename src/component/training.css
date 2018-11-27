@@ -30,3 +30,13 @@
 .ideal{
   background-color: green;
 }
+
+.history{
+  background-color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.history li{
+  display: block;
+}

@@ -84,7 +84,6 @@ export const login = (username, password) => dispatch => {
 
 export const saveUserData = () => (dispatch, getState) => {
     dispatch(fetchGameData());
-    console.log(getState());
     const score = getState().game.score;
     const note = getState().game.note;
     const handsPlayed = getState().game.handsPlayed;
@@ -110,6 +109,24 @@ export const saveUserData = () => (dispatch, getState) => {
    })
     .then(res => normalizeResponseErrors(res))
     .catch(err => console.log('there was an err :' + err));
+}
+
+export const getHistory = (id) => (getState) => {
+    const authToken = getState().auth.authToken;
+    console.log('get history clicked');
+    return fetch(`${API_BASE_URL}/api/users/${id}`, {
+        method: 'GET',
+        headers: {
+            // Provide our existing token as credentials to get a new one
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authToken}`
+        }
+    })
+    // .then(res => normalizeResponseErrors(res))
+    // .then(res => res.json())
+    .then(res => console.log(res))
+    .catch(err => console.log('there was an err :' + err));
+
 }
 
 export const refreshAuthToken = () => (dispatch, getState) => {
