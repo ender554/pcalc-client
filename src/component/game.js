@@ -3,23 +3,17 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { grader } from '../grader';
 import './training.css';
-import { fetchHoldCard, fetchIdealCards, fetchHand } from '../actions/game';
 // import Deck from "react-poker";
 // onClick={(target) => this.props.dispatch(fetchHoldCard(target.target.value))}
 
-let hand = [];
 
-let card = {
-  rank: '',
-  suit: '',
-  position: ''
-};
 class Game extends Component {
 
   state = {
     showModal: false,
     hand: [{}, {}, {}, {}, {}],
-    currentCard: null
+    currentCard: null,
+    graded: false
   }
 
   componentDidMount() {
@@ -29,13 +23,13 @@ class Game extends Component {
     const board = this.renderTheBoard(this.state.hand);
     const modal = (<form
       onSubmit={(e) => { this.setCard(e) }}>modal
-      <select ref={input=> this.suit = input}>
+      <select ref={input => this.suit = input}>
         <option value='hearts'>hearts</option>
         <option value='spades'>spades</option>
         <option value='clubs'>clubs</option>
         <option value='diamonds'>diamonds</option>
       </select>
-      <select ref={input=> this.rank = input}>
+      <select ref={input => this.rank = input}>
         <option value='2'>2</option>
         <option value='3'>3</option>
         <option value='4'>4</option>
@@ -64,10 +58,10 @@ class Game extends Component {
   }
 
   setCard(e) {
-    this.setState({ 
+    this.setState({
       showModal: false,
       hand: this.state.hand.map((card, i) => {
-        if(this.state.currentCard === i){
+        if (this.state.currentCard === i) {
           return {
             suit: this.suit.value,
             rank: this.rank.value
@@ -76,19 +70,40 @@ class Game extends Component {
         return card;
       })
     })
-    // console.log(this.suit.value);
+  }
 
-    console.log(this.rank.value);
+  renderConfirm() {
+    let handCount = 0;
+    for (let i = 0; i < this.state.hand.length; i++) {
+      if (this.state.hand[i].suit) {
+        handCount++;
+      }
+    }
+    if(handCount === 5){
+    return (
+      <button
+        onClick={() => this.gradeTheHand(this.state.hand)}
+      >Submit</button>
+    )
+    }
+    else return (<div></div>)
+  }
+
+
+
+  gradeTheHand(hand) {
+    grader(hand);
+    this.setState({graded: true});
   }
 
   renderTheBoard(stuff) {
+    const confirmButton = this.renderConfirm();
     return (
       <div className="game-component" >
         <ul className="hand">
           {this.deckRender(stuff)}
         </ul>
-
-        <button onClick={() => this.grade(this.props.cards)}>Confirm</button>
+        {confirmButton}
       </div>
     )
   }
@@ -99,22 +114,33 @@ class Game extends Component {
       currentCard: e.value
     })
   }
-  cardRender(card) {
-    console.log(card);
-  }
 
   deckRender(hand) {
     return hand.map((card, i) => {
-      return (
-        <li
-          key={i}
-          value={i}
-          className="cardDrop"
-          onClick={e => this.cardSelector(e.target)}
-        >
-          {card.rank? card.rank: ""} {card.suit? card.suit: ""} 
-        </li>
-      )
+      if (card.ideal) {
+        return (
+          <li
+            key={i}
+            value={i}
+            className="ideal"
+            onClick={e => this.cardSelector(e.target)}
+          >
+            {card.rank ? card.rank : ""} {card.suit ? card.suit : ""}
+          </li>
+        )
+      }
+      else {
+        return (
+          <li
+            key={i}
+            value={i}
+            className="cardDrop"
+            onClick={e => this.cardSelector(e.target)}
+          >
+            {card.rank ? card.rank : ""} {card.suit ? card.suit : ""}
+          </li>
+        )
+      }
     }
     )
   }

@@ -50,6 +50,7 @@ class HistoryPage extends React.Component {
   }
 
   render() {
+    // eslint-disable-next-line no-unused-vars
     let error;
 
     if (this.props.error) {
