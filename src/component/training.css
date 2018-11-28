@@ -1,24 +1,20 @@
-.hand {
-  list-style: none;
-  background-color: white;
-  margin-top: 50px;
-}
-
-.game-component{
-  margin-top: 50px;
-}
 
 .hand li{
   margin-left: 30px;
-  border: 2px solid black;
-  height: 125px;
-  width: 125px;
+  border: 2px solid red;
+  height: 60px;
+  width: 60px;
   text-align: center;
-  padding-top: 60px;
+  padding-top: none;
+  margin-top: none;
+  margin-bottom: 10px;
 }
 
 .deal button{
-  height: 50px;
+  height: 20px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
   width: 80px;
   box-shadow: 2px 2px 2px;
 }
@@ -39,4 +35,40 @@
 
 .history li{
   display: block;
+}
+
+.hand {
+  list-style: none;
+  background-color: white;
+  margin-top: 0px;
+}
+
+
+@media (min-width: 800px){
+
+  .hand {
+    list-style: none;
+    background-color: white;
+    margin-top: 50px;
+  }
+
+  .game-component{
+    margin-top: 50px;
+  }
+
+  .hand li{
+    margin-left: 30px;
+    border: 2px solid black;
+    height: 125px;
+    width: 125px;
+    text-align: center;
+    padding-top: 60px;
+  }
+
+  .deal button{
+    height: 50px;
+    width: 80px;
+    box-shadow: 2px 2px 2px;
+  }
+
 }
