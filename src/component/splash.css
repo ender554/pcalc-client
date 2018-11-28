@@ -1,15 +1,16 @@
 .splash-page{
-  background-color: green;
   width: 66%;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
   margin-top: 75px;
+  font-size: 10px;
+  background-color: rgba(238, 228, 228, 0.315);
+  box-shadow: 2px 2px 2px;
 }
 
-@media (min-width: 600px){
+@media (min-width: 850px){
   .splash-page{
-    background-color: red;
     width: 66%;
     margin-left: auto;
     margin-right: auto;
