@@ -148,7 +148,7 @@ class Game extends Component {
             className="ideal"
             onClick={e => this.cardSelector(e.currentTarget)}
           >
-            {card.rank ? card.rank : ""} {card.suit ? card.suit : ""}
+            {card.rank ? <img src={card.image} alt={card.image}/> : <img src={cardback} alt="cardback" />  }
           </li>
         )
       }

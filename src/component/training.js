@@ -92,7 +92,7 @@ class Training extends Component {
     return (
       <div className="game-component" >
         <ul className="hand"
-          onClick={(target) => this.props.dispatch(fetchHoldCard(target.target.value))}
+          
         >
           {this.deckRender(hand)}
         </ul>
@@ -119,13 +119,16 @@ class Training extends Component {
 
 
   heldCard(card, i) {
+    const imageName = card.rank + (card.suit.charAt(0).toUpperCase());
+    const image = (`/images/JPEG/${imageName}.jpg`)
+    const cardPic = <img src={image} alt={imageName} onClick={(target) => this.props.dispatch(fetchHoldCard(i))}/>;
     if (card.ideal) {
       return <li
         key={i}
         value={i}
         className="ideal"
       >
-        {card.rank} {card.suit}
+        {cardPic}
       </li>
     } else {
       return <li
@@ -133,19 +136,22 @@ class Training extends Component {
         value={i}
         className="held"
       >
-        {card.rank} {card.suit}
+        {cardPic}
       </li>
     }
   }
 
   openCard(card, i) {
+    const imageName = card.rank + (card.suit.charAt(0).toUpperCase());
+    const image = (`/images/JPEG/${imageName}.jpg`)
+    const cardPic = <img src={image} alt={imageName} onClick={(target) => this.props.dispatch(fetchHoldCard(i))}/>;
     if (card.ideal) {
       return <li
         key={i}
         value={i}
         className="ideal"
       >
-        {card.rank} {card.suit}
+        {cardPic}
       </li>
     } else {
       return <li
@@ -153,7 +159,7 @@ class Training extends Component {
         value={i}
         className="notHeld"
       >
-        {card.rank} {card.suit}
+        {cardPic}
       </li>
     }
   }
