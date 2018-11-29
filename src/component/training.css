@@ -1,11 +1,9 @@
 
 .hand li{
   margin-left: 30px;
-  /* border: 2px solid red; */
   height: 78px;
   width: 50px;
-  /* border: 2px solid black; */
-
+  border: 2px solid black;
   text-align: center;
   padding-top: none;
   margin-top: none;
@@ -22,11 +20,11 @@
 }
 
 .held{
-  border: 2px solid red;
+  border: 2px solid red !important;
 }
 
 .ideal{
-  border: 2px solid green;
+  border: 2px solid green !important;
 }
 
 .history{
@@ -80,6 +78,14 @@
     height: 50px;
     width: 80px;
     box-shadow: 2px 2px 2px;
+  }
+
+  .held{
+    border: 2px solid red !important;
+  }
+  
+  .ideal{
+    border: 2px solid green !important;
   }
 
 }
