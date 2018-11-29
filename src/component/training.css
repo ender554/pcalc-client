@@ -43,6 +43,16 @@
   margin-top: 0px;
 }
 
+.training{
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.note-modal{
+  z-index: 1;
+  
+}
 
 @media (min-width: 800px){
 

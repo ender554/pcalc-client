@@ -20,6 +20,7 @@ class Game extends Component {
     this.render();
   }
   render() {
+    const resetButton = (<button onClick={() => this.restart()}>Reset</button>);
     const board = this.renderTheBoard(this.state.hand);
     const modal = (<form
       onSubmit={(e) => { this.setCard(e) }}>modal
@@ -49,9 +50,10 @@ class Game extends Component {
       >Submit</button>
     </form>)
     return (
-      <div className="deal">
+      <div className="deal training">
+        {resetButton}
         {board}
-        <button onClick={() => this.restart()}>Reset</button>
+        
         {this.state.showModal ? modal : ''}
       </div>
     );

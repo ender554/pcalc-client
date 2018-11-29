@@ -36,15 +36,21 @@ class Training extends Component {
   }
   render() {
     const board = this.renderTheBoard(this.props.cards);
-
+    const confirmButton = (<button onClick={() => this.grade(this.props.cards)}>Confirm</button>);
+    const saveButton = (<button onClick={() => this.saveGame(this.props.game)}>Save</button>);
+    const dealButton = (<button onClick={() => this.dealHand()}>Deal</button>);
+    const notesButton = ( <button onClick={() => this.showNotes()}>Notes</button>);
+    const deal = (<div className="deal">
+      {this.state.showModal && this.renderNotes()}
+      <p>Hands Played: {handsPlayed}</p>
+      <p>Score: {score}</p>
+      {board}
+    </div>)
     return (
-      <div className="deal"><button onClick={() => this.dealHand()}>Deal</button>
-        <button onClick={() => this.showNotes()}>Notes</button>
-        {this.state.showModal && this.renderNotes()}
-        <p>Hands Played: {handsPlayed}</p>
-        <p>Score: {score}</p>
-        {board}
+      <div className="training">
+      {dealButton}    {confirmButton}    {saveButton}  {notesButton}  {deal}
       </div>
+
     );
 
   }
@@ -52,12 +58,12 @@ class Training extends Component {
   renderNotes() {
     return (
       <div className="noteModal">
-        <input 
+        <input
           type="text"
           onChange={e => this.updateTheNote(e.currentTarget.value)}
           defaultValue={this.props.note}
         ></input>
-        <button onClick={e => this.setState({showModal: false})}>Close</button>
+        <button onClick={e => this.setState({ showModal: false })}>Close</button>
 
       </div>
     )
@@ -89,11 +95,9 @@ class Training extends Component {
           onClick={(target) => this.props.dispatch(fetchHoldCard(target.target.value))}
         >
           {this.deckRender(hand)}
-          {/* {this.showNotes()} */}
         </ul>
 
-        <button onClick={() => this.grade(this.props.cards)}>Confirm</button>
-        <button onClick={() => this.saveGame(this.props.game)}>Save</button>
+
       </div>
     )
   }
@@ -103,7 +107,6 @@ class Training extends Component {
   }
 
   updateTheNote(value) {
-    console.log('changing Notes');
     this.props.dispatch(updateNote(value))
   }
 
@@ -158,13 +161,13 @@ class Training extends Component {
 
   saveGame() {
     this.props.dispatch(saveUserData(this.props.game))
-    .then(this.props.dispatch(resetGame()))
-    .then(this.dealHand())
-    .then(
-      score = 0,
-      handsPlayed = 0,
-      correctGuess = 0
-    )
+      .then(this.props.dispatch(resetGame()))
+      .then(this.dealHand())
+      .then(
+        score = 0,
+        handsPlayed = 0,
+        correctGuess = 0
+      )
   }
 
   dealHand() {

@@ -15,9 +15,9 @@ import './App.css';
 function App(){
     return(
       <BrowserRouter>
-        <div className="App main">
-          <NavBar />
-          <Main />
+        <div className="App main" key="app-main">
+          <NavBar key="navbar" />
+          <Main key="main" />
           {/* <DevState /> */}
           <Switch>
             <Redirect exact from='/' to='/splash' />

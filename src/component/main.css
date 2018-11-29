@@ -1,3 +1,7 @@
+html{
+  box-sizing: border-box;
+}
+
 /* Screen reader only */
 .sr-only {
   position: absolute;

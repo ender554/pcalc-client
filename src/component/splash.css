@@ -3,10 +3,8 @@
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  margin-top: 75px;
+  margin-top: 0px;
   font-size: 10px;
-  background-color: rgba(238, 228, 228, 0.315);
-  box-shadow: 2px 2px 2px;
 }
 
 @media (min-width: 850px){

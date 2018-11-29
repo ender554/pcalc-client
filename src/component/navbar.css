@@ -26,3 +26,7 @@ li a:hover {
 .logIn{
   float: right;
 }
+
+.main-nav ul{
+  height: 35px;
+}

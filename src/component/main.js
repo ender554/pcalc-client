@@ -17,11 +17,10 @@ const Main = props => {
     <a href="#main-menu-toggle" className="menu-close" aria-expanded="false"
       aria-controls="main-menu"
       aria-label="Close main menu">
-      <span class="sr-only">Close main menu</span>
+      <span className="sr-only">Close main menu</span>
       <span className="fa fa-close"></span>
     </a>
     <ul>
-      {/* <button onClick={props.loggedIn = !props.loggedIn}>Log Out</button> */}
       <li><Link to='/game' role="button"><button>New Game</button></Link></li>
       <li><Link to='/userHistory' role="button"><button>View History</button></Link></li>
       <li><Link to='/training' role="button"><button>New Training</button></Link></li>
