@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import './training.css';
+import './history.css';
 
 class HistoryPage extends React.Component {
 
@@ -15,6 +15,7 @@ class HistoryPage extends React.Component {
   }
 
   showHistory(history) {
+
     return (
       history.map((dataBit, i) => {
         return (
@@ -30,13 +31,15 @@ class HistoryPage extends React.Component {
     )
   }
   dataRender(data, i) {
+    console.log(data.date);
+    let date = data.date.slice(0,9);
     return <li
       key={i}
       value={i}
     >
       <p
       key={i+"date"}
-      >date: {data.date}</p>
+      >date: {date}</p>
       <p
       key={i+"score"}
       >score: {data.score}</p>
