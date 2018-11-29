@@ -89,13 +89,11 @@ export const saveUserData = () => (dispatch, getState) => {
     const handsPlayed = getState().game.handsPlayed;
     const userID = getState().auth.currentUser.id;
     const authToken = getState().auth.authToken;
-    console.log(score);
     const dataObject = {
         handsPlayed,
         score,
         note
     }
-    console.log(dataObject);
     return fetch(`${API_BASE_URL}/api/users/${userID}`, {
         method: 'PUT',
         headers: {
@@ -113,7 +111,6 @@ export const saveUserData = () => (dispatch, getState) => {
 
 export const getHistory = (id) => (getState) => {
     const authToken = getState().auth.authToken;
-    console.log('get history clicked');
     return fetch(`${API_BASE_URL}/api/users/${id}`, {
         method: 'GET',
         headers: {

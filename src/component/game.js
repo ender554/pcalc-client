@@ -3,10 +3,11 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { grader } from '../grader';
 import './training.css';
-import cardback from '../images/cardback.jpg';
-import cat from '../images/grumpycat.png';
+import cardback from '../cardback.jpg';
 // import Deck from "react-poker";
 // onClick={(target) => this.props.dispatch(fetchHoldCard(target.target.value))}
+
+
 
 
 class Game extends Component {
@@ -62,6 +63,10 @@ class Game extends Component {
 
   }
 
+  setImage(string){
+    return {string};
+  }
+
   restart() {
     this.setState({
       showModal: false,
@@ -72,13 +77,17 @@ class Game extends Component {
   }
 
   setCard(e) {
+    let imageName;
     this.setState({
       showModal: false,
       hand: this.state.hand.map((card, i) => {
         if (this.state.currentCard === i) {
+          imageName = this.rank.value + (this.suit.value.charAt(0).toUpperCase());
           return {
             suit: this.suit.value,
-            rank: this.rank.value
+            rank: this.rank.value,
+            image: `/images/JPEG/${imageName}.jpg`
+          
           }
         }
         return card;
@@ -151,7 +160,7 @@ class Game extends Component {
             className="cardDrop"
             onClick={e => this.cardSelector(e.currentTarget)}
           >
-            {card.rank ? <img src={cat} /> : <img src={cardback} /> }
+            {card.rank ? <img src={card.image} alt={card.image}/> : <img src={cardback} alt="cardback" />  }
           </li>
         )
       }

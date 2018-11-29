@@ -47,7 +47,6 @@ const initialState = {
 }
 
 export default function Reducer(state = initialState, action) {
-  // console.log(state, action);
 
   switch (action.type) {
     case AUTH_SUCCESS: {
@@ -85,9 +84,7 @@ export default function Reducer(state = initialState, action) {
     }
 
     case HOLD_CARD: {
-      // console.log('holding card' + action.hand + " " + state.cards[action.hand].suit);
       const heldHand = [];
-      // console.log(action.hand);
       for (let i = 0; i < state.cards.length; i++) {
         if (i === action.hand) {
           const card = {
@@ -116,7 +113,6 @@ export default function Reducer(state = initialState, action) {
     }
 
     case IDEAL_CARD: {
-      console.log('fetching cards');
       const idealCards = [];
       for (let i = 0; i < state.cards.length; i++) {
         const card = {
@@ -136,8 +132,6 @@ export default function Reducer(state = initialState, action) {
     }
 
     case UPDATE_NOTE: {
-      console.log('updating notes');
-      console.log(action);
       return{
         ...state,
         note: action.note
@@ -145,7 +139,6 @@ export default function Reducer(state = initialState, action) {
     }
 
     case UPDATE_GAME: {
-      console.log('updating Game actions are ' + action.score + " and " + action.handsPlayed);
       return{
         ...state,
         score: action.score,
@@ -155,7 +148,6 @@ export default function Reducer(state = initialState, action) {
     }
 
     case FETCH_GAME_REQUEST: {
-      console.log('fetch game request');
       return {
         state,
         loading: true,
