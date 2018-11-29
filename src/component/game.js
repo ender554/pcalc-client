@@ -3,6 +3,8 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { grader } from '../grader';
 import './training.css';
+import cardback from '../images/cardback.jpg';
+import cat from '../images/grumpycat.png';
 // import Deck from "react-poker";
 // onClick={(target) => this.props.dispatch(fetchHoldCard(target.target.value))}
 
@@ -53,7 +55,7 @@ class Game extends Component {
       <div className="deal training">
         {resetButton}
         {board}
-        
+
         {this.state.showModal ? modal : ''}
       </div>
     );
@@ -129,14 +131,13 @@ class Game extends Component {
 
   deckRender(hand) {
     return hand.map((card, i) => {
-      console.log(card);
       if (card.ideal) {
         return (
           <li
             key={i}
             value={i}
             className="ideal"
-            onClick={e => this.cardSelector(e.target)}
+            onClick={e => this.cardSelector(e.currentTarget)}
           >
             {card.rank ? card.rank : ""} {card.suit ? card.suit : ""}
           </li>
@@ -148,9 +149,9 @@ class Game extends Component {
             key={i}
             value={i}
             className="cardDrop"
-            onClick={e => this.cardSelector(e.target)}
+            onClick={e => this.cardSelector(e.currentTarget)}
           >
-            {card.rank ? card.rank : ""} {card.suit ? card.suit : ""}
+            {card.rank ? <img src={cat} /> : <img src={cardback} /> }
           </li>
         )
       }
@@ -171,4 +172,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(Game);
-
