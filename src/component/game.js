@@ -129,6 +129,7 @@ class Game extends Component {
 
   deckRender(hand) {
     return hand.map((card, i) => {
+      console.log(card);
       if (card.ideal) {
         return (
           <li
