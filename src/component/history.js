@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import './history.css';
+import './training.css';
 
 class HistoryPage extends React.Component {
 
