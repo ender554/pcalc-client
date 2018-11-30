@@ -33,8 +33,10 @@ const Main = props => {
   const toggle = (<a className="toggle-nav" href="#" >&#9776;</a>);
   return (
     <nav className="menu">
+    
       {theUl}
       {toggle}
+      Game Controls
     </nav>)
 }
 
