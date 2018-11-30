@@ -39,17 +39,18 @@ class Training extends Component {
     const confirmButton = (<button onClick={() => this.grade(this.props.cards)}>Confirm</button>);
     const saveButton = (<button onClick={() => this.saveGame(this.props.game)}>Save</button>);
     const dealButton = (<button onClick={() => this.dealHand()}>Deal</button>);
-    const notesButton = ( <button onClick={() => this.showNotes()}>Notes</button>);
+    const notesButton = (<button onClick={() => this.showNotes()}>Notes</button>);
     const deal = (<div className="deal">
       {this.state.showModal && this.renderNotes()}
-      <p>Hands Played: {handsPlayed}</p>
-      <p>Score: {score}</p>
+      <h1>Hands Played: {handsPlayed}</h1>
+      <h2>Score: {score}</h2>
       {board}
     </div>)
+    const buttons = (<div className="controls">{dealButton}    {confirmButton}    {saveButton}  {notesButton}</div>);
     return (
-      <div className="training">
-      {dealButton}    {confirmButton}    {saveButton}  {notesButton}  {deal}
-      </div>
+      <main className="training">
+        {deal}   {buttons}
+      </main>
 
     );
 
@@ -91,8 +92,8 @@ class Training extends Component {
   renderTheBoard(hand) {
     return (
       <div className="game-component" >
-        <ul className="hand"
-          
+        <ul
+
         >
           {this.deckRender(hand)}
         </ul>
@@ -121,7 +122,7 @@ class Training extends Component {
   heldCard(card, i) {
     const imageName = card.rank + (card.suit.charAt(0).toUpperCase());
     const image = (`/images/JPEG/${imageName}.jpg`)
-    const cardPic = <img src={image} alt={imageName} onClick={(target) => this.props.dispatch(fetchHoldCard(i))}/>;
+    const cardPic = <img src={image} alt={imageName} onClick={(target) => this.props.dispatch(fetchHoldCard(i))} />;
     if (card.ideal) {
       return <li
         key={i}
@@ -144,7 +145,7 @@ class Training extends Component {
   openCard(card, i) {
     const imageName = card.rank + (card.suit.charAt(0).toUpperCase());
     const image = (`/images/JPEG/${imageName}.jpg`)
-    const cardPic = <img src={image} alt={imageName} onClick={(target) => this.props.dispatch(fetchHoldCard(i))}/>;
+    const cardPic = <img src={image} alt={imageName} onClick={(target) => this.props.dispatch(fetchHoldCard(i))} />;
     if (card.ideal) {
       return <li
         key={i}

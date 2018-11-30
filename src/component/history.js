@@ -71,9 +71,10 @@ class HistoryPage extends React.Component {
     }
     let viewHistory = this.showHistory(this.props.auth.currentUser.sessions);
     return (
-      <div className="history">
+      <main className="history">
+      <h1>History</h1>
         {viewHistory}
-      </div>
+      </main>
     )
   }
 }

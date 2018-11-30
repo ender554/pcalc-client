@@ -21,7 +21,6 @@ const Main = props => {
     $('.navButton').click(function(e) {
       $(this).toggleClass('active');
       $('.menu ul').toggleClass('active');
-      // e.preventDefault();
     });
   });
   const theUl = (<ul class="active">
@@ -31,9 +30,9 @@ const Main = props => {
     <li><Link to='/logout' role="button"><button className="navButton">Log Out</button></Link></li>
   </ul>);
   // eslint-disable-next-line jsx-a11y/anchor-is-valid
-  const toggle = (<a className="toggle-nav" href="#">&#9776;</a>);
+  const toggle = (<a className="toggle-nav" href="#" >&#9776;</a>);
   return (
-    <nav class="menu">
+    <nav className="menu">
       {theUl}
       {toggle}
     </nav>)

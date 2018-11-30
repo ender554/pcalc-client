@@ -1,30 +1,76 @@
 
-.hand li{
-  margin-left: 30px;
-  height: 78px;
-  width: 50px;
-  border: 2px solid black;
+
+.hand {
   text-align: center;
-  padding-top: none;
-  margin-top: none;
-  margin-bottom: 10px;
+  
+}
+
+.training button{
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+h2 {
+  text-align: center;
+}
+
+.training {
+  box-sizing: border-box;
+}
+
+.controls {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.controls button {
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.game-component{
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.game-component ul {
+  background-color: white;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.game-component ul li {
+  width: 14%;
+  margin-left: 3%;
+  margin-right: 3%;
+}
+
+.deal {
+  text-align: center;
 }
 
 .deal button{
   height: 20px;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   padding-top: 0px;
   width: 80px;
   box-shadow: 2px 2px 2px;
 }
 
 .held{
-  border: 2px solid red !important;
+  background: rgba(179, 10, 10, 0.5);
 }
 
 .ideal{
-  border: 2px solid green !important;
+  background: rgba(10, 179, 18, 0.5);
 }
 
 .history{
@@ -55,37 +101,4 @@
 }
 
 @media (min-width: 800px){
-
-  .hand {
-    list-style: none;
-    background-color: white;
-    margin-top: 50px;
-  }
-
-  .game-component{
-    margin-top: 50px;
-  }
-
-  .hand li{
-    margin-left: 30px;
-    border: 2px solid black;
-    height: 190px;
-    width: 125px;
-    text-align: center;
-  }
-
-  .deal button{
-    height: 50px;
-    width: 80px;
-    box-shadow: 2px 2px 2px;
-  }
-
-  .held{
-    border: 2px solid red !important;
-  }
-  
-  .ideal{
-    border: 2px solid green !important;
-  }
-
 }

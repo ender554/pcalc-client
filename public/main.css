@@ -1,5 +1,9 @@
 #container { display:block; }
 
+html {
+  box-sizing: border-box;
+}
+
 @media only screen and (orientation:portrait){
 
   #container {

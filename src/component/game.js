@@ -23,7 +23,7 @@ class Game extends Component {
     this.render();
   }
   render() {
-    const resetButton = (<button onClick={() => this.restart()}>Reset</button>);
+    const resetButton = (<button onClick={() => this.restart()} aria-label="reset">Reset</button>);
     const board = this.renderTheBoard(this.state.hand);
     const modal = (<form
       onSubmit={(e) => { this.setCard(e) }}>modal
@@ -53,12 +53,12 @@ class Game extends Component {
       >Submit</button>
     </form>)
     return (
-      <div className="deal training">
+      <main className="deal training">
         {resetButton}
         {board}
 
         {this.state.showModal ? modal : ''}
-      </div>
+      </main>
     );
 
   }

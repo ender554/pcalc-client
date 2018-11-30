@@ -4,7 +4,7 @@ import './splash.css';
 
 export function Splash(){
   return(
-    <div className="splash-page">
+    <main className="splash-page">
       <div className="focus">
         <h1>Welcome to PCAP!</h1>
         <h2>Where Video Poker is your Ticket to Freebies</h2>
@@ -18,6 +18,6 @@ export function Splash(){
         WARNING:::::::: LOGIC NOT CURRENTLY CORRECTLY FUNCTIONAL DO NOT USE FOR TRUE ADVICE 
         </p>
       </div>
-    </div>
+    </main>
   )
 }
