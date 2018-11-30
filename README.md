@@ -31,3 +31,40 @@ log in page image
 
 game play image
 ![alt text](public/images/gameplay.jpg)
+
+
+###Tech Stack
+
+this game utilizes react and redux to mage state and front end management
+It is provider wrapped and targeted via App component to various other
+components
+
+The game utilizes mongoDb for back end database management for user authentication, note taking, 
+history, and utilizes JWT authentication for user security
+
+The game also uses 2 NPM libraries the first being the poker deck library 
+npm cards manages the ability to create random hands for training
+
+Also until the logic is built in house it uses npm pokersolver to display
+results of poker hands (This is place holder for the actual logic which is 
+in development via a team).
+
+###Key components
+
+The app uses 4 sets of action auth, game, users, and utils for state management
+It also handles the actions through 2 reducers auth and game which are combined 
+via middleware.
+App is Provider wrapped in index.js and and controls the following components
+
+splash.js which gives a landing page and description
+main.js which controls navigation of app features
+login.js which controls authentication and log in of users
+training.js which controls simple automatic gameplay for training those new to poker
+history.js in which a user can see their progress in working with the trainer
+game.js which controls the main game flow for live use
+history.js which shows a user their tracked sessions of training including notes they keep
+logout.js which ends a users tracked session and stores data of that session in users history
+
+###This app is currently still under developmentg by the team at Smiling Man Entertainment and is not 
+###meant to be used for actual casino success at this time. 
+###use at your own risk!
