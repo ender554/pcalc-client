@@ -2,6 +2,8 @@ import React from "react";
 import { clearAuth } from '../actions/auth';
 import { connect } from 'react-redux';
 import { saveUserData } from '../actions/auth';
+import  './training.css';
+
 
 
 
@@ -30,9 +32,9 @@ class Logout extends React.Component {
       );
     }
     return(
-      <div className="logoutButton">
+      <main className="logoutButton"><h1>Big 'ol LogOut Button</h1>
         <button onClick={this.logOut}>LogOut</button>
-      </div>
+      </main>
     )
   }
 }

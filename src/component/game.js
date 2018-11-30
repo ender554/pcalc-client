@@ -55,6 +55,7 @@ class Game extends Component {
     return (
       <main className="deal training">
         {resetButton}
+        <h1>Live Game Play!</h1>
         {board}
 
         {this.state.showModal ? modal : ''}

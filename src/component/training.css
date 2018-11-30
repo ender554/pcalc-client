@@ -52,6 +52,18 @@ h2 {
   margin-right: 3%;
 }
 
+.logoutButton {
+  text-align: center;
+}
+
+.logoutButton button{
+  margin: 200px;
+  width: 200px;
+  height: 200px;
+  color: red;
+  background-color: black;
+}
+
 .deal {
   text-align: center;
 }
