@@ -33,7 +33,7 @@ game play image
 ![alt text](public/images/gameplay.jpg)
 
 
-###Tech Stack
+### Tech Stack
 
 this game utilizes react and redux to mage state and front end management
 It is provider wrapped and targeted via App component to various other
@@ -49,7 +49,7 @@ Also until the logic is built in house it uses npm pokersolver to display
 results of poker hands (This is place holder for the actual logic which is 
 in development via a team).
 
-###Key components
+### Key components
 
 The app uses 4 sets of action auth, game, users, and utils for state management
 It also handles the actions through 2 reducers auth and game which are combined 
@@ -65,6 +65,6 @@ game.js which controls the main game flow for live use
 history.js which shows a user their tracked sessions of training including notes they keep
 logout.js which ends a users tracked session and stores data of that session in users history
 
-###This app is currently still under developmentg by the team at Smiling Man Entertainment and is not 
-###meant to be used for actual casino success at this time. 
-###use at your own risk!
+### This app is currently still under developmentg by the team at Smiling Man Entertainment and is not 
+### meant to be used for actual casino success at this time. 
+### use at your own risk!
