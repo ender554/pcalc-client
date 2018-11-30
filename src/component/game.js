@@ -1,17 +1,14 @@
+//import statements {React, Component, connect, grader, cardback(jpg)}
 import React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { grader } from '../grader';
 import './training.css';
 import cardback from '../cardback.jpg';
-// import Deck from "react-poker";
-// onClick={(target) => this.props.dispatch(fetchHoldCard(target.target.value))}
-
-
-
-
 class Game extends Component {
 
+  //default local state of game for live game, does not require dynamic state just local
+  //exports with state mapped to props for possible future needs involving grade type
   state = {
     showModal: false,
     hand: [{}, {}, {}, {}, {}],
@@ -19,9 +16,13 @@ class Game extends Component {
     graded: false
   }
 
+  //on mount render
   componentDidMount() {
     this.render();
   }
+
+  //main render function 
+  //calls restart, renderTheBoard, setCard
   render() {
     const resetButton = (<button onClick={() => this.restart()} aria-label="reset">Reset</button>);
     const board = this.renderTheBoard(this.state.hand);
@@ -57,17 +58,13 @@ class Game extends Component {
         {resetButton}
         <h1>Live Game Play!</h1>
         {board}
-
         {this.state.showModal ? modal : ''}
       </main>
     );
 
   }
 
-  setImage(string){
-    return {string};
-  }
-
+  //sets state back to default
   restart() {
     this.setState({
       showModal: false,
@@ -77,6 +74,21 @@ class Game extends Component {
     })
   }
 
+  //renders the board portion of the playing field
+  //calls renderConfirm and deckRender
+  renderTheBoard(stuff) {
+    const confirmButton = this.renderConfirm();
+    return (
+      <div className="game-component" >
+        <ul className="hand">
+          {this.deckRender(stuff)}
+        </ul>
+        {confirmButton}
+      </div>
+    )
+  }
+
+  //sets the cards maping the hand and getting the rank, suit and image of the card in question
   setCard(e) {
     let imageName;
     this.setState({
@@ -88,7 +100,6 @@ class Game extends Component {
             suit: this.suit.value,
             rank: this.rank.value,
             image: `/images/JPEG/${imageName}.jpg`
-          
           }
         }
         return card;
@@ -96,6 +107,8 @@ class Game extends Component {
     })
   }
 
+  //renders the board and correct state on confirming of hand input
+  //calls Grade The Hand
   renderConfirm() {
     let handCount = 0;
     for (let i = 0; i < this.state.hand.length; i++) {
@@ -113,32 +126,8 @@ class Game extends Component {
     else return (<div></div>)
   }
 
-
-
-  gradeTheHand(hand) {
-    grader(hand);
-    this.setState({ graded: true });
-  }
-
-  renderTheBoard(stuff) {
-    const confirmButton = this.renderConfirm();
-    return (
-      <div className="game-component" >
-        <ul className="hand">
-          {this.deckRender(stuff)}
-        </ul>
-        {confirmButton}
-      </div>
-    )
-  }
-
-  cardSelector(e) {
-    this.setState({
-      showModal: true,
-      currentCard: e.value
-    })
-  }
-
+  //renders the cards on the board and associates their keys
+  //shows card images via cardSelector
   deckRender(hand) {
     return hand.map((card, i) => {
       if (card.ideal) {
@@ -168,11 +157,24 @@ class Game extends Component {
     }
     )
   }
-  cardElement(thing, num) {
-    return thing;
+
+
+  //sends the current hand out to the grading logic and sets the state of the graded property to true
+  gradeTheHand(hand) {
+    grader(hand);
+    this.setState({ graded: true });
+  }
+
+  //allows targeted card to be manipulated
+  cardSelector(e) {
+    this.setState({
+      showModal: true,
+      currentCard: e.value
+    })
   }
 }
 
+//future for mapping game types to props
 const mapStateToProps = (state) => {
   return ({
     game: state.game,
@@ -181,4 +183,5 @@ const mapStateToProps = (state) => {
   });
 }
 
+//export component
 export default connect(mapStateToProps)(Game);

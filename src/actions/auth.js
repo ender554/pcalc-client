@@ -37,7 +37,6 @@ export const authError = error => ({
 });
 
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
-// export const authLogout = 
 
 const storeAuthInfo = (authToken, dispatch) => {
   const decodedToken = jwtDecode(authToken);
