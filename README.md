@@ -18,4 +18,16 @@ The current logic dictating the holds is not optimized for live play! It is stri
 
 https://pcap-client.herokuapp.com
 
+
+splash page image
 ![alt text](public/images/landing.jpg)
+
+
+training page image
+![alt text](public/images/training.jpg)
+
+log in page image
+![alt text](public/images/login.jpg)
+
+game play image
+![alt text](public/images/gameplay.jpg)
