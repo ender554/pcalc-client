@@ -57,12 +57,17 @@ class Training extends Component {
       {board}
     </div>)
     const buttons = (<div className="controls">{dealButton}    {confirmButton}    {saveButton}  {notesButton}</div>);
-    return (
-      <main className="training">
-        {deal}   {buttons}
-      </main>
+    console.log(this);
+    if (!this.props.game.loggedIn) {
+      return (<main className="please-log-in"><h1>Please Log In</h1></main>)
+    } else {
+      return (
+        <main className="training">
+          {deal}   {buttons}
+        </main>
 
-    );
+      );
+    }
 
   }
 

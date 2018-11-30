@@ -53,14 +53,19 @@ class Game extends Component {
         type="submit"
       >Submit</button>
     </form>)
-    return (
-      <main className="deal training">
-        {resetButton}
-        <h1>Live Game Play!</h1>
-        {board}
-        {this.state.showModal ? modal : ''}
-      </main>
-    );
+    console.log(this.props.game.loggedIn);
+    if (!this.props.game.loggedIn) {
+      return (<main className="please-log-in"><h1>Please Log In</h1></main>)
+    } else {
+      return (
+        <main className="deal training">
+          {resetButton}
+          <h1>Live Game Play!</h1>
+          {board}
+          {this.state.showModal ? modal : ''}
+        </main>
+      );
+    }
 
   }
 
@@ -75,13 +80,13 @@ class Game extends Component {
   }
 
   //renders the board portion of the playing field
-  //calls renderConfirm and deckRender
+  //calls renderConfirm and handRender
   renderTheBoard(stuff) {
     const confirmButton = this.renderConfirm();
     return (
       <div className="game-component" >
         <ul className="hand">
-          {this.deckRender(stuff)}
+          {this.handRender(stuff)}
         </ul>
         {confirmButton}
       </div>
@@ -120,7 +125,7 @@ class Game extends Component {
       return (
         <button
           onClick={() => this.gradeTheHand(this.state.hand)}
-        >Submit</button>
+        >Hold?</button>
       )
     }
     else return (<div></div>)
@@ -128,7 +133,7 @@ class Game extends Component {
 
   //renders the cards on the board and associates their keys
   //shows card images via cardSelector
-  deckRender(hand) {
+  handRender(hand) {
     return hand.map((card, i) => {
       if (card.ideal) {
         return (
@@ -138,7 +143,7 @@ class Game extends Component {
             className="ideal"
             onClick={e => this.cardSelector(e.currentTarget)}
           >
-            {card.rank ? <img src={card.image} alt={card.image}/> : <img src={cardback} alt="cardback" />  }
+            {card.rank ? <img src={card.image} alt={card.image} /> : <img src={cardback} alt="cardback" />}
           </li>
         )
       }
@@ -150,7 +155,7 @@ class Game extends Component {
             className="cardDrop"
             onClick={e => this.cardSelector(e.currentTarget)}
           >
-            {card.rank ? <img src={card.image} alt={card.image}/> : <img src={cardback} alt="cardback" />  }
+            {card.rank ? <img src={card.image} alt={card.image} /> : <img src={cardback} alt="cardback" />}
           </li>
         )
       }

@@ -57,11 +57,9 @@ h2 {
 }
 
 .logoutButton button{
-  margin: 200px;
+  margin: 100px;
   width: 200px;
-  height: 200px;
-  color: red;
-  background-color: black;
+  height: 100px;
 }
 
 .deal {

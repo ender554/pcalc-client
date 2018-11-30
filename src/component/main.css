@@ -1,99 +1,24 @@
-.toggle-nav {
-	display:none;
-}
-
-/*----- Menu -----*/
-@media screen and (min-width: 860px) {
-	.menu {
-	width:75%;
-	margin-left: auto;
-	margin-right: auto;
-	padding:10px 18px;
-	}
+.menu{
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .menu ul {
-	display:inline-block;
-	width:75%;
-	margin-left: auto;
+  background-color: white;
+  width: 70%;
+  margin-left: auto;
 	margin-right: auto;
+	text-decoration: none;
+}
+
+.menu ul li a:hover{
+	background-color: white;
+}
+
+.menu ul li {
+	width: 25%;
 	background-color: white;
 
 }
-
-.menu li {
-	list-style:none;
-	font-size:17px;
-}
-
-
-.menu a {
-	text-shadow:0px 1px 0px rgba(0,0,0,0.5);
-	color:#777;
-	transition:color linear 0.15s;
-}
-
-
-
-
-
-	.menu {
-		position:relative;
-		display:inline;
-	}
-
-	.menu ul.active {
-		display:none;
-	}
-
-	.menu ul {
-		width: 150px;
-		position:absolute;
-		top:80%;
-		left:0px;
-		background:black;
-	}
-
-	.menu ul li{
-		margin-top: 5px;
-	}
-
-	.menu ul:after {
-		width:70px;
-		height:0px;
-		position:absolute;
-		top:0%;
-		left:22px;
-		content:'';
-		transform:translate(0%, -100%);
-		border-left:7px solid transparent;
-		border-right:7px solid transparent;
-		border-bottom:7px solid #303030;
-	}
-
-	.menu li {
-		margin:5px 0px 5px 0px;
-		float:none;
-		display:inline;
-	}
-
-	.menu a {
-		display:inline;
-	}
-
-	.toggle-nav {
-		padding:5px;
-		display:inline;
-		border-radius:3px;
-		background:#303030;
-		text-shadow:0px 1px 0px rgba(0,0,0,0.5);
-		color:#777;
-		font-size:px;
-		transition:color linear 0.15s;
-	}
-
-	.toggle-nav:hover, .toggle-nav.active {
-		text-decoration:none;
-		color:#66a992;
-	}
-
