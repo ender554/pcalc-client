@@ -49,6 +49,23 @@ Also until the logic is built in house it uses npm pokersolver to display
 results of poker hands (This is place holder for the actual logic which is 
 in development via a team).
 
+### Dependencies:
+    "cards": "^1.0.1",
+    "jquery": "^3.3.1",
+    "jwt-decode": "^2.2.0",
+    "mongodb": "^3.1.9",
+    "pokersolver": "^2.1.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-poker": "0.0.77",
+    "react-redux": "^5.1.1",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "^4.0.8",
+    "react-scripts": "2.1.1",
+    "redux": "^4.0.1",
+    "redux-form": "^7.4.2",
+    "redux-thunk": "^2.3.0"
+
 ### Key components
 
 The app uses 4 sets of action auth, game, users, and utils for state management
