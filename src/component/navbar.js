@@ -9,7 +9,6 @@ export function NavBar() {
       <nav className="main-nav">
         <ul>
           <li><Link to="/">Logo </Link></li>
-          <li className="logIn"><Link to='/login'> Log In! </Link></li>
         </ul>
       </nav >
     </header>);

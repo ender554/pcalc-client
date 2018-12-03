@@ -53,130 +53,125 @@ class Game extends Component {
         type="submit"
       >Submit</button>
     </form>)
-    console.log(this.props.game.loggedIn);
-    if (!this.props.game.loggedIn) {
-      return (<main className="please-log-in"><h1>Please Log In</h1></main>)
-    } else {
-      return (
-        <main className="deal training">
-          {resetButton}
-          <h1>Live Game Play!</h1>
-          {board}
-          {this.state.showModal ? modal : ''}
-        </main>
-      );
-    }
 
-  }
-
-  //sets state back to default
-  restart() {
-    this.setState({
-      showModal: false,
-      hand: [{}, {}, {}, {}, {}],
-      currentCard: null,
-      graded: false
-    })
-  }
-
-  //renders the board portion of the playing field
-  //calls renderConfirm and handRender
-  renderTheBoard(stuff) {
-    const confirmButton = this.renderConfirm();
     return (
-      <div className="game-component" >
-        <ul className="hand">
-          {this.handRender(stuff)}
-        </ul>
-        {confirmButton}
-      </div>
+      <main className="deal training">
+        {resetButton}
+        <h1>Live Game Play!</h1>
+        {board}
+        {this.state.showModal ? modal : ''}
+      </main>
+    );
+  }
+
+//sets state back to default
+restart() {
+  this.setState({
+    showModal: false,
+    hand: [{}, {}, {}, {}, {}],
+    currentCard: null,
+    graded: false
+  })
+}
+
+//renders the board portion of the playing field
+//calls renderConfirm and handRender
+renderTheBoard(stuff) {
+  const confirmButton = this.renderConfirm();
+  return (
+    <div className="game-component" >
+      <ul className="hand">
+        {this.handRender(stuff)}
+      </ul>
+      {confirmButton}
+    </div>
+  )
+}
+
+//sets the cards maping the hand and getting the rank, suit and image of the card in question
+setCard(e) {
+  let imageName;
+  this.setState({
+    showModal: false,
+    hand: this.state.hand.map((card, i) => {
+      if (this.state.currentCard === i) {
+        imageName = this.rank.value + (this.suit.value.charAt(0).toUpperCase());
+        return {
+          suit: this.suit.value,
+          rank: this.rank.value,
+          image: `/images/JPEG/${imageName}.jpg`
+        }
+      }
+      return card;
+    })
+  })
+}
+
+//renders the board and correct state on confirming of hand input
+//calls Grade The Hand
+renderConfirm() {
+  let handCount = 0;
+  for (let i = 0; i < this.state.hand.length; i++) {
+    if (this.state.hand[i].suit) {
+      handCount++;
+    }
+  }
+  if (handCount === 5) {
+    return (
+      <button
+        onClick={() => this.gradeTheHand(this.state.hand)}
+      >Hold?</button>
     )
   }
+  else return (<div></div>)
+}
 
-  //sets the cards maping the hand and getting the rank, suit and image of the card in question
-  setCard(e) {
-    let imageName;
-    this.setState({
-      showModal: false,
-      hand: this.state.hand.map((card, i) => {
-        if (this.state.currentCard === i) {
-          imageName = this.rank.value + (this.suit.value.charAt(0).toUpperCase());
-          return {
-            suit: this.suit.value,
-            rank: this.rank.value,
-            image: `/images/JPEG/${imageName}.jpg`
-          }
-        }
-        return card;
-      })
-    })
-  }
-
-  //renders the board and correct state on confirming of hand input
-  //calls Grade The Hand
-  renderConfirm() {
-    let handCount = 0;
-    for (let i = 0; i < this.state.hand.length; i++) {
-      if (this.state.hand[i].suit) {
-        handCount++;
-      }
-    }
-    if (handCount === 5) {
+//renders the cards on the board and associates their keys
+//shows card images via cardSelector
+handRender(hand) {
+  return hand.map((card, i) => {
+    if (card.ideal) {
       return (
-        <button
-          onClick={() => this.gradeTheHand(this.state.hand)}
-        >Hold?</button>
+        <li
+          key={i}
+          value={i}
+          className="ideal"
+          onClick={e => this.cardSelector(e.currentTarget)}
+        >
+          {card.rank ? <img src={card.image} alt={card.image} /> : <img src={cardback} alt="cardback" />}
+        </li>
       )
     }
-    else return (<div></div>)
-  }
-
-  //renders the cards on the board and associates their keys
-  //shows card images via cardSelector
-  handRender(hand) {
-    return hand.map((card, i) => {
-      if (card.ideal) {
-        return (
-          <li
-            key={i}
-            value={i}
-            className="ideal"
-            onClick={e => this.cardSelector(e.currentTarget)}
-          >
-            {card.rank ? <img src={card.image} alt={card.image} /> : <img src={cardback} alt="cardback" />}
-          </li>
-        )
-      }
-      else {
-        return (
-          <li
-            key={i}
-            value={i}
-            className="cardDrop"
-            onClick={e => this.cardSelector(e.currentTarget)}
-          >
-            {card.rank ? <img src={card.image} alt={card.image} /> : <img src={cardback} alt="cardback" />}
-          </li>
-        )
-      }
+    else {
+      return (
+        <li
+          key={i}
+          value={i}
+          className="cardDrop"
+          onClick={e => this.cardSelector(e.currentTarget)}
+        >
+          {card.rank ? <img src={card.image} alt={card.image} /> : <img src={cardback} alt="cardback" />}
+        </li>
+      )
     }
-    )
   }
+  )
+}
 
 
-  //sends the current hand out to the grading logic and sets the state of the graded property to true
-  gradeTheHand(hand) {
-    grader(hand);
-    this.setState({ graded: true });
-  }
+//sends the current hand out to the grading logic and sets the state of the graded property to true
+gradeTheHand(hand) {
+  grader(hand);
+  this.setState({ graded: true });
+}
 
-  //allows targeted card to be manipulated
-  cardSelector(e) {
-    this.setState({
-      showModal: true,
-      currentCard: e.value
-    })
-  }
+//allows targeted card to be manipulated
+cardSelector(e) {
+  this.setState({
+    showModal: true,
+    currentCard: e.value
+  })
+}
 }
 
 //future for mapping game types to props
@@ -184,7 +179,6 @@ const mapStateToProps = (state) => {
   return ({
     game: state.game,
     cards: state.game.cards,
-    note: state.game.note
   });
 }
 
