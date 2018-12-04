@@ -4,10 +4,10 @@ import React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { grader } from '../grader';
-
+import Main from './main';
 import './training.css';
 
-import { fetchHoldCard, fetchIdealCards, fetchHand, updateGame} from '../actions/game';
+import { fetchHoldCard, fetchIdealCards, fetchHand, updateGame } from '../actions/game';
 
 // build deck object from cards dependency
 const { decks } = require('cards');
@@ -52,108 +52,106 @@ class Training extends Component {
       {board}
     </div>)
     const buttons = (<div className="controls">{dealButton} {confirmButton}</div>);
-
+    const training = (<div className="training">
+      {deal}   {buttons}
+    </div>);
+    const main = (<Main key="main" />);
     return (
-      <main className="training">
-        {deal}   {buttons}
-      </main>
-
+      <main> {main} {training} </main>
     );
   }
 
-//renders the baord
-//calls handRender
-renderTheBoard(hand) {
-  return (
-    <div className="game-component" >
-      <ul
-      >
-        {this.handRender(hand)}
-      </ul>
-    </div>
-  )
-}
-
-
-//dispatches the current hand to the grader calls fetchIdealCards and grader, calculateScore and updateGame
-grade(cards) {
-  this.props.dispatch(fetchIdealCards(grader(cards)));
-  handsPlayed++;
-  this.calculateScore(cards);
-  this.props.dispatch(updateGame(handsPlayed, score));
-}
-
-handRender(hand) {
-  return hand.map((card, i) => {
-    return (card.held ? this.heldCard(card, i) : this.openCard(card, i))
+  renderTheBoard(hand) {
+    return (
+      <div className="game-component" >
+        <ul
+        >
+          {this.handRender(hand)}
+        </ul>
+      </div>
+    )
   }
-  )
-};
 
-//calculates the score of current training session
-calculateScore(hand) {
-  let counter = 0;
-  for (let i = 0; i < hand.length; i++) {
-    if (hand[i].held === hand[i].ideal) {
-      counter++;
+
+  //dispatches the current hand to the grader calls fetchIdealCards and grader, calculateScore and updateGame
+  grade(cards) {
+    this.props.dispatch(fetchIdealCards(grader(cards)));
+    handsPlayed++;
+    this.calculateScore(cards);
+    this.props.dispatch(updateGame(handsPlayed, score));
+  }
+
+  handRender(hand) {
+    return hand.map((card, i) => {
+      return (card.held ? this.heldCard(card, i) : this.openCard(card, i))
+    }
+    )
+  };
+
+  //calculates the score of current training session
+  calculateScore(hand) {
+    let counter = 0;
+    for (let i = 0; i < hand.length; i++) {
+      if (hand[i].held === hand[i].ideal) {
+        counter++;
+      }
+    }
+    if (counter === 5) {
+      correctGuess++;
+    }
+    score = correctGuess / handsPlayed;
+    score = score * 100
+    score = parseFloat(Math.round(score * 100) / 100).toFixed(2);
+  }
+  //renders each card that has been set to held
+  //dispatches fetchHoldCard
+  heldCard(card, i) {
+    const imageName = card.rank + (card.suit.charAt(0).toUpperCase());
+    const image = (`/images/JPEG/${imageName}.jpg`)
+    const cardPic = <img src={image} alt={imageName} onClick={(target) => this.props.dispatch(fetchHoldCard(i))} />;
+    if (card.ideal) {
+      return <li
+        key={i}
+        value={i}
+        className="ideal"
+      >
+        {cardPic}
+      </li>
+    } else {
+      return <li
+        key={i}
+        value={i}
+        className="held"
+      >
+        {cardPic}
+      </li>
     }
   }
-  if (counter === 5) {
-    correctGuess++;
-  }
-  score = correctGuess / handsPlayed;
-  score = score * 100
-  score = parseFloat(Math.round(score * 100) / 100).toFixed(2);
-}
-//renders each card that has been set to held
-//dispatches fetchHoldCard
-heldCard(card, i) {
-  const imageName = card.rank + (card.suit.charAt(0).toUpperCase());
-  const image = (`/images/JPEG/${imageName}.jpg`)
-  const cardPic = <img src={image} alt={imageName} onClick={(target) => this.props.dispatch(fetchHoldCard(i))} />;
-  if (card.ideal) {
-    return <li
-      key={i}
-      value={i}
-      className="ideal"
-    >
-      {cardPic}
-    </li>
-  } else {
-    return <li
-      key={i}
-      value={i}
-      className="held"
-    >
-      {cardPic}
-    </li>
-  }
-}
 
-//renders each card that has not been set to held
-//dispatches fetchHoldCard
-openCard(card, i) {
-  const imageName = card.rank + (card.suit.charAt(0).toUpperCase());
-  const image = (`/images/JPEG/${imageName}.jpg`)
-  const cardPic = <img src={image} alt={imageName} onClick={(target) => this.props.dispatch(fetchHoldCard(i))} />;
-  if (card.ideal) {
-    return <li
-      key={i}
-      value={i}
-      className="ideal"
-    >
-      {cardPic}
-    </li>
-  } else {
-    return <li
-      key={i}
-      value={i}
-      className="notHeld"
-    >
-      {cardPic}
-    </li>
+  //renders each card that has not been set to held
+  //dispatches fetchHoldCard
+  openCard(card, i) {
+    const imageName = card.rank + (card.suit.charAt(0).toUpperCase());
+    const image = (`/images/JPEG/${imageName}.jpg`)
+    const cardPic = <img src={image} alt={imageName} onClick={(target) => this.props.dispatch(fetchHoldCard(i))} />;
+    if (card.ideal) {
+      return <li
+        key={i}
+        value={i}
+        className="ideal"
+      >
+        {cardPic}
+      </li>
+    } else {
+      return <li
+        key={i}
+        value={i}
+        className="notHeld"
+      >
+        {cardPic}
+      </li>
+    }
   }
-}
 }
 
 //maps the game cards and notes to state

@@ -4,7 +4,6 @@ import Game from './component/game';
 // import ReactDOM from 'react-dom';
 import {Splash} from './component/splash';
 // import DevState from './component/devState';
-import Main from './component/main';
 import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import './App.css';
 
@@ -12,7 +11,6 @@ function App(){
     return(
       <BrowserRouter>
         <div className="App main" key="app-main">
-          <Main key="main" />
           {/* <DevState /> */}
           <Switch>
             <Redirect exact from='/' to='/splash' />

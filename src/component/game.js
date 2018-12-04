@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { grader } from '../grader';
 import './training.css';
 import cardback from '../cardback.jpg';
+import Main from './main';
+
 class Game extends Component {
 
   //default local state of game for live game, does not require dynamic state just local
@@ -20,6 +22,7 @@ class Game extends Component {
   componentDidMount() {
     this.render();
   }
+
 
   //main render function 
   //calls restart, renderTheBoard, setCard
@@ -53,14 +56,16 @@ class Game extends Component {
         type="submit"
       >Submit</button>
     </form>)
-
+    const main = (<Main />);
+    const game = (<main className="deal training">
+    {resetButton}
+    <h1>Live Game Play!</h1>
+    {board}
+    {this.state.showModal ? modal : ''}
+  </main>);
     return (
-      <main className="deal training">
-        {resetButton}
-        <h1>Live Game Play!</h1>
-        {board}
-        {this.state.showModal ? modal : ''}
-      </main>
+     <div> {main} {game}</div>
+      
     );
   }
 
