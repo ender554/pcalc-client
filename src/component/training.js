@@ -6,9 +6,8 @@ import { connect } from 'react-redux';
 import { grader } from '../grader';
 
 import './training.css';
-import './notes.css';
 
-import { fetchHoldCard, fetchIdealCards, fetchHand, updateGame, resetGame } from '../actions/game';
+import { fetchHoldCard, fetchIdealCards, fetchHand, updateGame} from '../actions/game';
 
 // build deck object from cards dependency
 const { decks } = require('cards');
