@@ -95,5 +95,7 @@ const setFormat = (keepers) => {
       }
     }
 
+
+
     return arrOfCards;
   }

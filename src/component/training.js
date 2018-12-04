@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { grader } from '../grader';
 import Main from './main';
 import './training.css';
+import {graderTwo} from '../graderTwo';
 
 import { fetchHoldCard, fetchIdealCards, fetchHand, updateGame } from '../actions/game';
 
@@ -75,7 +76,8 @@ class Training extends Component {
 
   //dispatches the current hand to the grader calls fetchIdealCards and grader, calculateScore and updateGame
   grade(cards) {
-    this.props.dispatch(fetchIdealCards(grader(cards)));
+    // this.props.dispatch(fetchIdealCards(grader(cards)));
+    console.log((graderTwo(cards)));
     handsPlayed++;
     this.calculateScore(cards);
     this.props.dispatch(updateGame(handsPlayed, score));
