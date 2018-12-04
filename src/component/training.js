@@ -48,7 +48,7 @@ class Training extends Component {
     const dealButton = (<button onClick={() => this.dealHand()}>Deal</button>);
     const deal = (<div className="deal">
       <h1>Hands Played: {handsPlayed}</h1>
-      <h2>Score: {score}</h2>
+      <h2>Score: {score}%</h2>
       {board}
     </div>)
     const buttons = (<div className="controls">{dealButton} {confirmButton}</div>);
@@ -83,16 +83,6 @@ grade(cards) {
   this.props.dispatch(updateGame(handsPlayed, score));
 }
 
-//save game saves the current game state to the user history and resets the game
-//calls save UserData then resetsGame, then dealHand
-
-//shows the notes modal via local state
-
-//renders the note controls and field
-//calls updateTheNote and setStat
-
-//renders the hand itself
-//calls heldCard and openCard
 handRender(hand) {
   return hand.map((card, i) => {
     return (card.held ? this.heldCard(card, i) : this.openCard(card, i))
@@ -112,10 +102,9 @@ calculateScore(hand) {
     correctGuess++;
   }
   score = correctGuess / handsPlayed;
+  score = score * 100
+  score = parseFloat(Math.round(score * 100) / 100).toFixed(2);
 }
-
-//u
-
 //renders each card that has been set to held
 //dispatches fetchHoldCard
 heldCard(card, i) {
