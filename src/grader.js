@@ -2,7 +2,7 @@
 
 export const grader = (input) => {
   let winners = input.map(x => x);
-  const winnerArr = []
+  const winnerArr = [];
   winners = setFormat(wholeThing(makeCheckableHand(winners)));
   let formattedWinners = winners.map(x => x);
   for(let i = 0; i < formattedWinners.length; i++){
@@ -96,6 +96,6 @@ const setFormat = (keepers) => {
     }
 
 
-
+    console.log(arrOfCards);
     return arrOfCards;
   }

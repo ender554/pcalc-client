@@ -1,12 +1,46 @@
+import {printWinningCombinationOdds} from './jorb';
 export const jacksOrBetter = (input) => {
+  const rankToBinary = {
+    "2": 1, "3": 2, "4": 4, "5": 8, "6": 16, "7": 32, "8": 64, "9": 128, "10": 256,
+    "J": 512, "Q": 1024, "K": 2048, "A": 4096
+  };
+  const suitToBinary = {
+    "clubs": 1, "spades": 2, "hearts": 4, "diamonds": 8
+  };
+  const binaryToRank= {
+    1: "2", 2: "3",4: "4",8: "5",16: "6",32: "7", 64: "8",128: "9", 256: "10",
+    512: "J", 1024: "Q", 2048: "K", 4096: "A"
+  };
+
+  const binaryToSuit = {
+    1: "clubs", 2: "spades", 4: "hearts", 8: "diamonds"
+  };
+
+  const heldCards = [];
+  let suitArray = [0,0,0,0,0];
+  let rankArray = [0,0,0,0,0];
+  for(let i = 0; i < input.length; i++){
+    suitArray[i] = suitToBinary[input[i].suit];
+    rankArray[i] = rankToBinary[input[i].rank];
+  }
+  console.log(suitArray);
+  console.log(rankArray);
   //:TODO
+  //input = array of card objects with suit rank, held, ideal
 
-  //figure out what type of hand it is based on strategy
+  //want to change the state of each cards ideal value
+  const idealCards = printWinningCombinationOdds(suitArray, rankArray);
+  for(let j = 0; j < idealCards.length; j++){
+    let card = {
+      rank: input[idealCards[j]].rank,
+      suit: input[idealCards[j]].suit
+    }
+    heldCards.push(card)
+  }
+
   
-
-  //return the array of objects that should be held based on above result
-
-  return input;
+  console.log(heldCards);
+  return heldCards;
 }
 
 
