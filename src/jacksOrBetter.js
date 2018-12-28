@@ -23,23 +23,22 @@ export const jacksOrBetter = (input) => {
     suitArray[i] = suitToBinary[input[i].suit];
     rankArray[i] = rankToBinary[input[i].rank];
   }
-  console.log(suitArray);
-  console.log(rankArray);
   //:TODO
   //input = array of card objects with suit rank, held, ideal
 
   //want to change the state of each cards ideal value
   const idealCards = printWinningCombinationOdds(suitArray, rankArray);
-  for(let j = 0; j < idealCards.length; j++){
-    let card = {
-      rank: input[idealCards[j]].rank,
-      suit: input[idealCards[j]].suit
+  console.log(idealCards);
+  if(idealCards){
+    for(let j = 0; j < idealCards.length; j++){
+      input[idealCards[j]].ideal = true;
     }
-    heldCards.push(card)
+  }
+  for(let i = 0; i < input.length; i++){
+    heldCards.push(input[i]);
   }
 
   
-  console.log(heldCards);
   return heldCards;
 }
 

@@ -1,3 +1,5 @@
+import { clubs, spades, hearts } from "cards/src/suits";
+
 const binaryToSuit = {1 : 'Clubs', 2 : 'Spades', 4 : 'Hearts', 8 : 'Diamonds'};
 const binaryToValue = {1:2, 2:3, 4:4, 8:5, 16:6, 32:7, 64:8, 128:9, 256:10, 512:'Jack', 1024:'Queen', 2048:'King', 4096: 'Ace'};
 const binaryArray = [1,2,4,8,16,32,64,128,256,512,1024,2048, 4096];
@@ -5,6 +7,8 @@ const typeArray = ['Clubs', 'Spades', 'Hearts', 'Diamonds'];
 const suitSize = 13;
 const pairBuckets = [0,0,0,0,0,0,0,0,0,0,0,0,0];
 const flushBuckets = [0,0,0,0];
+
+
 //clubs, spades, hearts, diamonds
 const currentDeckArray = [8191, 8191, 8191, 8191];
 
@@ -245,8 +249,19 @@ function fourToRoyal(suitsHeld, valuesHeld){
 }
 
 function dealtFullHouse(){
-  if(checkIfFlush(3) && checkIfFlush(2))
+  let threeFlag = false;
+  let twoFlag = false;
+  for(let i = 0; i < pairBuckets.length; i++){
+    if(pairBuckets[i] === 3){
+      threeFlag = true;
+    }    
+    else if(pairBuckets[i] === 2){
+      twoFlag = true;
+    }
+  }
+  if(threeFlag && twoFlag){
     return [0,1,2,3,4];
+  }
   return null;
 }
 
@@ -391,16 +406,9 @@ function highPair(valuesHeld){
 }
 
 function threeToRoyalFlush(suitsHeld, valuesHeld){
-  let i;
-  for(i = 0; i < flushBuckets.length; i++){
-    if(flushBuckets[i] === 3)
-      break;
-  }
-  if(i === flushBuckets.length)
-    return null;
-  let suitType = 1 << i;
+  let suitType = checkIfFlush(3);
   let returnArray = [];
-  for(i = 0; i < suitsHeld.length; i++){
+  for(let i = 0; i < suitsHeld.length; i++){
     if(parseInt(suitsHeld[i]) & suitType){
       if(parseInt(valuesHeld[i]) > 256)
         returnArray.push(i);
@@ -408,8 +416,12 @@ function threeToRoyalFlush(suitsHeld, valuesHeld){
         return null;
     }
   }
+  if(returnArray.length < 3){
+    return null;
+  }
   return returnArray;
 }
+
 
 function fourToAFlush(suitsHeld, valueHeld){
   let i;
@@ -541,9 +553,8 @@ function threeToStraightFlush(suitsHeld, valuesHeld){
   let straightChecker = [];
   for(let i = 0; i < suitsHeld.length; i++){
     if(suitsHeld[i] & suitType)
-      straightChecker.push(1 << i);
+      straightChecker.push(valuesHeld[i]);
   }
-  console.log(straightChecker);
   let returnArray = checkStraight(straightChecker, 2);
   return returnArray;
 }

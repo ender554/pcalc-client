@@ -78,6 +78,9 @@ class Training extends Component {
 
   //dispatches the current hand to the grader calls fetchIdealCards and grader, calculateScore and updateGame
   grade(cards) {
+    console.log('--------------');
+    jacksOrBetter(cards);
+    console.log('--------------');
     this.props.dispatch(fetchIdealCards(jacksOrBetter(cards)));
     // console.log((graderTwo(cards)));
     handsPlayed++;
