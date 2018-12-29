@@ -6,11 +6,8 @@ import { connect } from 'react-redux';
 import { grader } from '../grader';
 import Main from './main';
 import './training.css';
-import {graderTwo} from '../graderTwo';
-import {printWinningCombinationOdds} from '../jorb';
 
 import { fetchHoldCard, fetchIdealCards, fetchHand, updateGame } from '../actions/game';
-import { jacksOrBetter } from '../jacksOrBetter';
 
 // build deck object from cards dependency
 const { decks } = require('cards');
@@ -78,10 +75,7 @@ class Training extends Component {
 
   //dispatches the current hand to the grader calls fetchIdealCards and grader, calculateScore and updateGame
   grade(cards) {
-    console.log('--------------');
-    jacksOrBetter(cards);
-    console.log('--------------');
-    this.props.dispatch(fetchIdealCards(jacksOrBetter(cards)));
+    this.props.dispatch(fetchIdealCards(grader(cards, this.props.game.type)));
     // console.log((graderTwo(cards)));
     handsPlayed++;
     this.calculateScore(cards);
@@ -165,7 +159,8 @@ class Training extends Component {
 const mapStateToProps = (state) => {
   return ({
     game: state.game,
-    cards: state.game.cards
+    cards: state.game.cards,
+    type: state.game.type
   });
 }
 

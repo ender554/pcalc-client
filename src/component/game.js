@@ -166,7 +166,7 @@ handRender(hand) {
 
 //sends the current hand out to the grading logic and sets the state of the graded property to true
 gradeTheHand(hand) {
-  grader(hand);
+  grader(hand, this.props.game.type);
   this.setState({ graded: true });
 }
 

@@ -40,7 +40,8 @@ const initialState = {
   hand: false,
   error: null,
   handsPlayed: 0,
-  score: 0
+  score: 0,
+  type: "jacksOrBetter"
 }
 
 export default function Reducer(state = initialState, action) {
