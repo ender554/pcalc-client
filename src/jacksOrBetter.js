@@ -377,12 +377,12 @@ function threeToRoyalFlush(suitsHeld, valuesHeld){
   let returnArray = [];
   for(let i = 0; i < suitsHeld.length; i++){
     if(parseInt(suitsHeld[i]) & suitType){
-      if(parseInt(valuesHeld[i]) > 128)
+      if(parseInt(valuesHeld[i]) > 128){
         returnArray.push(i);
-      else
-        return null;
+      }
     }
   }
+  console.log(returnArray);
   if(returnArray.length < 3){
     return null;
   }
