@@ -98,7 +98,6 @@ function pairsChance(suitsHeld, valuesHeld){
     }
     counter = 1;
   }
-  console.log(max + ' pair');
 }
 
 function findHammingDistance(value){
@@ -170,9 +169,7 @@ function resetPairBuckets(){
 
 function returnKeptCards(valuesHeld, value){
   let returnArray = [];
-  console.log(valuesHeld);
   for(let i = 0; i < valuesHeld.length; i++){
-    console.log(valuesHeld[i]);
     if(valuesHeld[i] & value)
       returnArray.push(i);
   }
@@ -204,48 +201,20 @@ function dealtFourOfAKind(suitsHeld, valuesHeld){
 }
 
 function fourToRoyal(suitsHeld, valuesHeld){
-  //missing 10, jack, queen, king, ace in that order
-  let missingCardChecker = [7680, 7424, 6912, 5888, 3840];
-  let totalCardValue = 0;
-  //position 1: card suit, position 2: counter, position 3: position
-  let suitOne = [suitsHeld[0],1,0];
-  let suitTwo = [0,0,0];
-  for(let i = 1; i < suitsHeld.length; i++){
-    if(suitOne[0] & suitsHeld[i])
-      suitOne[1]++;
-    else{
-      if(suitTwo[0] ^ suitsHeld[i]){
-        suitTwo[0] = suitsHeld[i];
-        suitTwo[2] = i;
-      }
-      suitTwo[1]++;
+  let suitType = checkIfFlush(4);
+  let returnArray = [];
+  for(let i = 0; i < suitsHeld.length; i++){
+    if(parseInt(suitsHeld[i]) & suitType){
+      if(parseInt(valuesHeld[i]) > 128)
+        returnArray.push(i);
+      else
+        return null;
     }
   }
-  let missingPosition = -1;
-  if(suitTwo[1] & 4 || suitOne[1] & 4){
-    suitTwo[1] & 4  ? missingPosition = suitOne[2] : missingPosition = suitTwo[2];
-  }
-  if(suitOne[1] === 5){
-    for(let i = 0; i < valuesHeld.length; i++){
-      if(valuesHeld[i] < 256)
-        missingPosition = i;
-    }
-  }
-  if(missingPosition === -1)
+  if(returnArray.length < 4){
     return null;
-  totalCardValue = orArray(valuesHeld) ^ valuesHeld[missingPosition];
-  let cardsToKeep = [];
-  let flag = false;
-  for(let i = 0; i < missingCardChecker.length; i++){
-    if(!(totalCardValue ^ missingCardChecker[i]))
-    {
-      flag = true;
-    }
-    else{
-      cardsToKeep.push(i);
-    }
   }
-  return (flag) ? cardsToKeep : null; 
+  return returnArray;
 }
 
 function dealtFullHouse(){
@@ -319,7 +288,6 @@ function checkStraight(valuesHeld, gap){
   let returnArray = [];
   let mask;
   let straightChecker = orArray(valuesHeld);
-  console.log(straightChecker);
   //if 0 breaks loop
   while(straightChecker > 0){
     //checks if the one bit is on
@@ -327,7 +295,6 @@ function checkStraight(valuesHeld, gap){
       //gets the position of the value in the valuesHeld array as the order can be randomized
       for(i = 0; i < valuesHeld.length; i++){
         mask = 1 << counter;
-        console.log(valuesHeld[i] + ' : ' + mask);
         if(valuesHeld[i] & mask){
           break;
         }
@@ -410,7 +377,7 @@ function threeToRoyalFlush(suitsHeld, valuesHeld){
   let returnArray = [];
   for(let i = 0; i < suitsHeld.length; i++){
     if(parseInt(suitsHeld[i]) & suitType){
-      if(parseInt(valuesHeld[i]) > 256)
+      if(parseInt(valuesHeld[i]) > 128)
         returnArray.push(i);
       else
         return null;
@@ -534,12 +501,13 @@ function twoSuitedHighCards(suitsHeld, valuesHeld){
   for(let i = 0; i < valuesHeld.length; i++){
     if(valuesHeld[i] > 256){
       suitArray.push(i);
+      console.log(i);
     }
   }
   for(let i = 0; i < suitArray.length - 1; i++){
     for(let j = i + 1; j < suitArray.length; j++){
       if(suitsHeld[suitArray[i]] & suitsHeld[suitArray[j]]){
-        return[i, j];
+        return[suitArray[i], suitArray[j]];
       }
     }
   }
@@ -548,15 +516,20 @@ function twoSuitedHighCards(suitsHeld, valuesHeld){
 
 function threeToStraightFlush(suitsHeld, valuesHeld){
   const suitType = checkIfFlush(3);
+  let returnArray = [];
   if(!suitType)
     return null;
   let straightChecker = [];
   for(let i = 0; i < suitsHeld.length; i++){
-    if(suitsHeld[i] & suitType)
+    if(suitsHeld[i] & suitType){
       straightChecker.push(valuesHeld[i]);
+      returnArray.push(i);
+    }
   }
-  let returnArray = checkStraight(straightChecker, 2);
-  return returnArray;
+  if(checkStraight(straightChecker, 2)){
+    return returnArray;
+  };
+  return null;
 }
 
 function twoUnsuitedHighCards(suitsHeld, valuesHeld){
@@ -565,15 +538,16 @@ function twoUnsuitedHighCards(suitsHeld, valuesHeld){
     return null;
   }
   const highCardArray = returnKeptCards(valuesHeld, 7680);
-  console.log('these are the returned cards: ' + highCardArray);
-  if(highCardArray.length < 3)
+  if(highCardArray.length < 2)
+    return null;
+  if(highCard.length === 2){
     return highCardArray;
+  }
   let minOne = Number.MAX_SAFE_INTEGER;
   let minTwo = Number.MAX_SAFE_INTEGER;
   let returnArray = [-1, -1];
   //pick the lower of the two;
   for(let i = 0; i < highCardArray.length; i++){
-    console.log(valuesHeld[highCardArray[i]] + ' < ' + minOne + ' = ' + valuesHeld[highCardArray[i]] < minOne )
     if(valuesHeld[highCardArray[i]] < minOne){
       minTwo = minOne;
       minOne = valuesHeld[highCardArray[i]];
@@ -587,6 +561,33 @@ function twoUnsuitedHighCards(suitsHeld, valuesHeld){
   }
   return returnArray;
 
+}
+
+function twoSuitedTenJackOrTenQueenOrTenKing(suitsHeld, valuesHeld){
+  const combined = orArray(valuesHeld);
+  let keptCards = null;
+  if((combined & 768) === 768){
+    keptCards = returnKeptCards(valuesHeld, 768);
+  }
+  else if((combined & 1280) === 1280){
+    keptCards = returnKeptCards(valuesHeld, 1280);
+  }
+  else if((combined & 2304) === 2304){
+    keptCards = returnKeptCards(valuesHeld, 2304);
+  }
+  if(!keptCards)
+    return null;
+  if(suitsHeld[keptCards[0]] & suitsHeld[keptCards[1]])
+    return keptCards;
+  return null;
+}
+
+function highCard(suitsHeld, valuesHeld){
+  for(let i = 0; i < valuesHeld.length; i++){
+    if(valuesHeld[i] > 256)
+      return [i];
+  }
+  return null;
 }
 
 function printWinningCombinationOdds(suitsHeld, valuesHeld){
@@ -679,6 +680,16 @@ function printWinningCombinationOdds(suitsHeld, valuesHeld){
   cardsToKeep = twoUnsuitedHighCards(suitsHeld, valuesHeld);//step 11 modify
   if(cardsToKeep){
     console.log('Dealt two unsuited high cards');
+    return cardsToKeep;
+  }
+  cardsToKeep = twoSuitedTenJackOrTenQueenOrTenKing(suitsHeld, valuesHeld);//step 11 modify
+  if(cardsToKeep){
+    console.log('Dealt a suited Ten/Jack or a Ten/Queen or a Ten/King');
+    return cardsToKeep;
+  }
+  cardsToKeep = highCard(suitsHeld, valuesHeld);//step 11 modify
+  if(cardsToKeep){
+    console.log('Dealt a high card');
     return cardsToKeep;
   }
   return null;
